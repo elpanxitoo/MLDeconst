@@ -86,17 +86,7 @@ export function PerfumeCard({
 
         {/* Estado hover: notas y precios de decants */}
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:opacity-100">
-          <span className="text-[11px] tracking-[0.2em] text-primary uppercase">
-            Notas Olfativas
-          </span>
-          <ul className="mt-2 flex flex-wrap justify-center gap-x-2 gap-y-1 text-sm text-foreground/85">
-            {perfume.notas.map((nota, i) => (
-              <li key={nota} className="flex items-center gap-2">
-                {i > 0 && <span aria-hidden className="text-primary/60">·</span>}
-                {nota}
-              </li>
-            ))}
-          </ul>
+
           <div className="mt-4 space-y-0.5 text-sm text-muted-foreground">
             {perfume.decants.map((d) => (
               <p key={d.ml}>
