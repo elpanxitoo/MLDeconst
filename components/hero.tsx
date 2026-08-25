@@ -26,7 +26,7 @@ export function Hero() {
         </h1>
 
         <p className="mt-6 max-w-lg leading-relaxed font-light text-muted-foreground text-pretty">
-          Accede a las fragancias más exclusivas y de autor del mundo en decants de 3ml, 5ml y
+          Accede a las fragancias más exclusivas y de autor del mundo en decants de 5ml y
           10ml. 100% auténticas, envasadas con precisión y atomizador premium dorado.
         </p>
 
@@ -38,10 +38,10 @@ export function Hero() {
             Explorar Catálogo
           </a>
           <a
-            href="#Fragancias"
+            href="#"
             className="rounded border border-border bg-white/[0.02] px-8 py-4 text-sm tracking-[1.5px] text-foreground uppercase transition-colors hover:border-primary hover:bg-primary/10"
           >
-            Nuestras Fragancias
+            Contactanos
           </a>
         </div>
 

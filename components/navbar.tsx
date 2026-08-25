@@ -1,7 +1,5 @@
 const ENLACES = [
   { href: "#Fragancias", texto: "Catálogo" },
-  { href: "#marcas", texto: "Marcas" },
-  { href: "#nicho", texto: "Perfumería Nicho" },
   { href: "#nosotros", texto: "Nosotros" },
   { href: "#contacto", texto: "Contacto" },
 ]
