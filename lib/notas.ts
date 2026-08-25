@@ -35,6 +35,8 @@ export const NOTAS = {
   // Notas agregadas para Vulcan Feu, The Kingdom, Asad Bourbon, Maahir Legacy, Khamrah Qahwa y Mandarin Sky.
   ambarGris: { nombre: "ámbar gris", imagen: "/notas/ambar-gris.png" },
   ambroxan: { nombre: "ambroxán", imagen: "/notas/ambroxan.png" },
+  amberwood: { nombre: "amberwood", imagen: "/notas/amberwood.png" },
+  notasAcuaticas: { nombre: "notas acuáticas", imagen: "/notas/notas-acuaticas.png" },
   azahar: { nombre: "azahar", imagen: "/notas/azahar.png" },
   bayaEnebro: { nombre: "baya de enebro", imagen: "/notas/baya-enebro.png" },
   benjui: { nombre: "benjuí", imagen: "/notas/benjui.png" },

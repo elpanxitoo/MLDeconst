@@ -153,6 +153,11 @@ export const PERFUMES: Perfume[] = [
     descripcion:
       "Un aroma fresco y moderno con notas de bergamota y pachulí, ideal para el día a día.",
     notas: ["Bergamota", "Pachulí"],
+    piramide: {
+      salida: [NOTAS.cardamomo, NOTAS.pimientaRosa, NOTAS.menta],
+      corazon: [NOTAS.salvia, NOTAS.pina],
+      base: [NOTAS.vainilla, NOTAS.vainilla, NOTAS.cedro],
+    },
     imagen: "/decants/fakhar-gold.webp",
     clima: ["calido"],
     temporadas: ["primavera", "verano"],
@@ -165,6 +170,11 @@ export const PERFUMES: Perfume[] = [
     descripcion:
       "Un aroma intenso y moderno con notas de pachulí y almizcle, ideal para el día a día.",
     notas: ["Pachulí", "Almizcle"],
+    piramide: {
+      salida: [NOTAS.manzana, NOTAS.bergamota],
+      corazon: [NOTAS.lavanda, NOTAS.lavanda, NOTAS.neroli],
+      base: [NOTAS.vainilla, NOTAS.vainilla, NOTAS.cedro],
+    },
     imagen: "/decants/fakhar-gold.webp",
     clima: ["frio"],
     temporadas: ["invierno", "otono"],
