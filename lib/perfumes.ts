@@ -39,8 +39,8 @@ export const clima: { valor: Clima; etiqueta: string }[] = [
 ]
 
 const DECANTS_ESTANDAR: Decant[] = [
-  { ml: 5, sprays: 75, precio: 2000 },
-  { ml: 10, sprays: 150, precio: 3000 },
+  { ml: 5, sprays: 90, precio: 2000 },
+  { ml: 10, sprays: 160, precio: 3000 },
 ]
 
 export const PERFUMES: Perfume[] = [
