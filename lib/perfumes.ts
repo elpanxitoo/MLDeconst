@@ -17,7 +17,6 @@ export type Perfume = {
   nombre: string
   casa: string
   descripcion: string
-  notas: string[]
   piramide: Piramide
   imagen: string
   temporadas: Temporada[]
@@ -50,7 +49,6 @@ export const PERFUMES: Perfume[] = [
     casa: "French Avenue",
     descripcion:
       "Destaca por sus notas de caramelo y maderas cálidas, creando una experiencia dulce y envolvente.",
-    notas: ["Caramelo", "Ron", "Vainilla", "Maderas"],
     piramide: {
       salida: [NOTAS.mango, NOTAS.lima, NOTAS.jengibre, NOTAS.ruibarbo],
       corazon: [NOTAS.pimientaRosa, NOTAS.jazmin, NOTAS.violeta, NOTAS.praline],
@@ -67,7 +65,6 @@ export const PERFUMES: Perfume[] = [
     casa: "Lattafa",
     descripcion:
       "Un aroma intenso con bourbon, café y especias que proyecta fuerza y elegancia nocturna.",
-    notas: ["Bourbon", "Café", "Cardamomo", "Ámbar"],
     piramide: {
       salida: [NOTAS.lavanda, NOTAS.ciruelaMirabel, NOTAS.pimientaRosa],
       corazon: [NOTAS.cacao, NOTAS.nuezMoscada, NOTAS.davana],
@@ -84,7 +81,6 @@ export const PERFUMES: Perfume[] = [
     casa: "Lattafa",
     descripcion:
       "Café con leche, dátil y especias dulces para un gourmand adictivo de gran estela.",
-    notas: ["Café", "Dátil", "Canela", "Praliné"],
     piramide: {
       salida: [NOTAS.canela, NOTAS.cardamomo, NOTAS.jengibre],
       corazon: [NOTAS.praline, NOTAS.frutasConfitadas, NOTAS.floresBlancas],
@@ -101,7 +97,6 @@ export const PERFUMES: Perfume[] = [
     casa: "Lattafa",
     descripcion:
       "Fresco y afrutado con un fondo amaderado; versátil para el uso diario y de oficina.",
-    notas: ["Piña", "Bergamota", "Cuero", "Pachulí"],
     piramide: {
       salida: [NOTAS.lima, NOTAS.menta, NOTAS.toronja, NOTAS.lavanda, NOTAS.pina],
       corazon: [NOTAS.bayaEnebro, NOTAS.romero, NOTAS.geranio, NOTAS.pimientaNegra, NOTAS.incienso],
@@ -118,7 +113,6 @@ export const PERFUMES: Perfume[] = [
     casa: "Armaf",
     descripcion:
       "Cítrico luminoso y burbujeante, ideal para los días cálidos y luminosos.",
-    notas: ["Mandarina", "Naranja", "Neroli", "Almizcle"],
     piramide: {
       salida: [NOTAS.mandarina, NOTAS.naranja, NOTAS.azafran, NOTAS.salvia],
       corazon: [NOTAS.caramelo, NOTAS.habaTonka, NOTAS.tagete],
@@ -135,7 +129,6 @@ export const PERFUMES: Perfume[] = [
     casa: "Lattafa",
     descripcion:
       "Fresco aromático con lavanda y frutas; elegante, limpio y muy fácil de llevar.",
-    notas: ["Lavanda", "Manzana", "Ámbar", "Vainilla"],
     piramide: {
       salida: [NOTAS.lavanda, NOTAS.menta, NOTAS.salvia],
       corazon: [NOTAS.vainilla, NOTAS.tabaco, NOTAS.azahar],
@@ -152,7 +145,6 @@ export const PERFUMES: Perfume[] = [
     casa: "Armaf",
     descripcion:
       "Un aroma fresco y moderno con notas de bergamota y pachulí, ideal para el día a día.",
-    notas: ["Bergamota", "Pachulí"],
     piramide: {
       salida: [NOTAS.cardamomo, NOTAS.pimientaRosa, NOTAS.menta],
       corazon: [NOTAS.salvia, NOTAS.pina],
@@ -164,20 +156,35 @@ export const PERFUMES: Perfume[] = [
     decants: DECANTS_ESTANDAR,
   },
   {
-    id: "armaf-odyssey-homme-black",
-    nombre: "Odyssey Homme Black ",
+    id: "armaf-odyssey-homme",
+    nombre: "Odyssey Homme", 
     casa: "Armaf",
     descripcion:
       "Un aroma intenso y moderno con notas de pachulí y almizcle, ideal para el día a día.",
-    notas: ["Pachulí", "Almizcle"],
     piramide: {
-      salida: [NOTAS.manzana, NOTAS.bergamota],
-      corazon: [NOTAS.lavanda, NOTAS.lavanda, NOTAS.neroli],
-      base: [NOTAS.vainilla, NOTAS.vainilla, NOTAS.cedro],
+      salida: [NOTAS.cardamomo, NOTAS.neroli, NOTAS.mandarina],
+      corazon: [NOTAS.flordenaranjo, NOTAS.rosa],
+      base: [NOTAS.vainilla, NOTAS.maderas, NOTAS.sandalo,NOTAS.ambar],
     },
     imagen: "/decants/fakhar-gold.webp",
     clima: ["frio"],
     temporadas: ["invierno", "otono"],
+    decants: DECANTS_ESTANDAR,
+  },
+  {
+    id: "jean-lowe-immortal",
+    nombre: "Jean Lowe Immortal",
+    casa: "Maison Alhambra",
+    descripcion:
+      "Un aroma fresco y moderno con notas de bergamota y pachulí, ideal para el día a día.",
+    piramide: {
+      salida: [NOTAS.jengibre, NOTAS.toronja, NOTAS.bergamota],
+      corazon: [NOTAS.notasAcuaticas, NOTAS.romero, NOTAS.salvia, NOTAS.geranio],
+      base: [NOTAS.ambroxan, NOTAS.ambar, NOTAS.ladano],
+    },
+    imagen: "/decants/fakhar-gold.webp",
+    clima: ["calido"],
+    temporadas: ["primavera", "verano"],
     decants: DECANTS_ESTANDAR,
   },
 
