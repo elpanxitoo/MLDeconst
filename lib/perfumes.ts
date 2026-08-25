@@ -66,7 +66,7 @@ export const PERFUMES: Perfume[] = [
     nombre: "Asad Bourbon",
     casa: "Lattafa",
     descripcion:
-      "Un aroma intenso con bourbon, café y especias que proyecta fuerza y elegancia nocturna.",
+      "¡Pura elegancia nocturna! Bourbon intenso y café oscuro sobre una vainilla cálida. Úsalo para proyectar poder y misterio en tus noches más frías",
     notas: [],
     piramide: {
       salida: [NOTAS.lavanda, NOTAS.ciruelaMirabel, NOTAS.pimientaRosa],
@@ -83,7 +83,7 @@ export const PERFUMES: Perfume[] = [
     nombre: "Khamrah Qahwa",
     casa: "Lattafa",
     descripcion:
-      "Café con leche, dátil y especias dulces para un gourmand adictivo de gran estela.",
+      "¡Un imán de cumplidos! Café dulce y dátiles especiados sobre un fondo envolvente. Úsalo para atrapar todas las miradas y dejar una estela irresistible en invierno.",
     notas: [],
     piramide: {
       salida: [NOTAS.canela, NOTAS.cardamomo, NOTAS.jengibre],
@@ -100,7 +100,7 @@ export const PERFUMES: Perfume[] = [
     nombre: "Maahir Legacy",
     casa: "Lattafa",
     descripcion:
-      "Fresco y afrutado con un fondo amaderado; versátil para el uso diario y de oficina.",
+      "¡Una ráfaga de pura frescura! Lima chispeante y menta limpia sobre maderas elegantes. Úsalo para transmitir energía y seguridad total en la oficina o el día a día.",
     notas: [],
     piramide: {
       salida: [NOTAS.lima, NOTAS.menta, NOTAS.toronja, NOTAS.lavanda, NOTAS.pina],
@@ -117,7 +117,7 @@ export const PERFUMES: Perfume[] = [
     nombre: "Odyssey Mandarin Sky",
     casa: "Armaf",
     descripcion:
-      "Cítrico luminoso y burbujeante, ideal para los días cálidos y luminosos.",
+      "¡Pura energía luminosa! Mandarina jugosa y azafrán sobre un adictivo fondo de caramelo. Úsalo para brillar y destacar con mucho magnetismo en los días soleados.",
     notas: [],
     piramide: {
       salida: [NOTAS.mandarina, NOTAS.naranja, NOTAS.azafran, NOTAS.salvia],
@@ -134,7 +134,7 @@ export const PERFUMES: Perfume[] = [
     nombre: "The Kingdom Man",
     casa: "Lattafa",
     descripcion:
-      "Fresco aromático con lavanda y frutas; elegante, limpio y muy fácil de llevar.",
+      "¡Seducción al instante! Menta limpia y lavanda fresca sobre un fondo dulce de tabaco. Úsalo para conquistar con estilo en tus citas o salidas de fin de semana.",
     notas: [],
     piramide: {
       salida: [NOTAS.lavanda, NOTAS.menta, NOTAS.salvia],
@@ -151,7 +151,7 @@ export const PERFUMES: Perfume[] = [
     nombre: "Odyssey Homme White ",
     casa: "Armaf",
     descripcion:
-      "Un aroma fresco y moderno con notas de bergamota y pachulí, ideal para el día a día.",
+      "¡Magnetismo moderno! Piña fresca y menta vibrante envueltas en un cardamomo cálido. Úsalo para dominar tu rutina diaria y dejar una huella segura en la oficina.",
     notas: [],
     piramide: {
       salida: [NOTAS.cardamomo, NOTAS.pimientaRosa, NOTAS.menta],
@@ -168,7 +168,7 @@ export const PERFUMES: Perfume[] = [
     nombre: "Odyssey Homme", 
     casa: "Armaf",
     descripcion:
-      "Un aroma intenso y moderno con notas de pachulí y almizcle, ideal para el día a día.",
+      "¡Oscuridad irresistible! Vainilla profunda y maderas ricas envueltas en un ámbar seductor. Úsalo para acaparar la atención en cenas románticas y eventos formales.",
       notas: [],
     piramide: {
       salida: [NOTAS.cardamomo, NOTAS.neroli, NOTAS.mandarina],
@@ -185,7 +185,7 @@ export const PERFUMES: Perfume[] = [
     nombre: "Jean Lowe Immortal",
     casa: "Maison Alhambra",
     descripcion:
-      "Un aroma fresco y moderno con notas de bergamota y pachulí, ideal para el día a día.",
+      "¡Clase y sofisticación pura! Toronja explosiva y jengibre picante sobre maderas elegantes. Úsalo para irradiar autoridad y un estilo impecable en los días de calor.",
     notas: [],
     piramide: {
       salida: [NOTAS.jengibre, NOTAS.toronja, NOTAS.bergamota],
