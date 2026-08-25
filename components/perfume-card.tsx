@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { precioMostrar, type Perfume } from "@/lib/perfumes"
+import { PiramideNotas } from "@/components/piramide-notas"
 
 export type PedestalVariant = "podio" | "losa"
 
@@ -106,6 +107,43 @@ export function PerfumeCard({
           </div>
         </div>
       </div>
+      {/* Panel hover: pirámide olfativa con miniaturas + precios de decants */}
+      <div className="pointer-events-none absolute inset-0 z-20 flex flex-col overflow-y-auto bg-card/95 p-5 opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:pointer-events-auto group-hover:opacity-100">
+        <header className="text-center">
+          <p className="text-[10px] tracking-[0.22em] text-muted-foreground uppercase">
+            {perfume.casa}
+          </p>
+          <h3 className="font-serif text-xl text-gold-light">{perfume.nombre}</h3>
+        </header>
+
+        <div className="mt-3">
+          <PiramideNotas piramide={perfume.piramide} />
+        </div>
+
+        <div className="mt-4 border-t border-border pt-3">
+          <table className="w-full text-sm">
+            <caption className="sr-only">
+              Precios de decants disponibles para {perfume.nombre}
+            </caption>
+            <tbody>
+              {perfume.decants.map((d) => (
+                <tr key={d.ml} className="align-baseline">
+                  <th scope="row" className="py-0.5 text-left font-normal text-foreground">
+                    {d.ml} ML
+                  </th>
+                  <td className="py-0.5 text-center text-xs text-muted-foreground">
+                    ~{d.sprays} atomizaciones
+                  </td>
+                  <td className="py-0.5 text-right text-primary">
+                    {precioMostrar(d.precio)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
 
       {/* Etiquetas de temporada y momento */}
       <div className="mt-auto flex flex-wrap items-center justify-center gap-2 border-t border-border pt-4">
