@@ -1,6 +1,8 @@
 // Catálogo de ML Decants — datos locales, sin base de datos.
 // Para agregar una fragancia, copia un objeto de PERFUMES y edita sus campos.
 
+import { NOTAS, type Piramide } from "./notas"
+
 export type Temporada = "invierno" | "verano" | "primavera" | "otono"
 export type Clima = "frio" | "calido"
 
@@ -16,6 +18,7 @@ export type Perfume = {
   casa: string
   descripcion: string
   notas: string[]
+  piramide: Piramide
   imagen: string
   temporadas: Temporada[]
   clima: Clima[]
@@ -48,6 +51,11 @@ export const PERFUMES: Perfume[] = [
     descripcion:
       "Destaca por sus notas de caramelo y maderas cálidas, creando una experiencia dulce y envolvente.",
     notas: ["Caramelo", "Ron", "Vainilla", "Maderas"],
+    piramide: {
+      salida: [NOTAS.mango, NOTAS.lima, NOTAS.jengibre, NOTAS.ruibarbo],
+      corazon: [NOTAS.pimientaRosa, NOTAS.jazmin, NOTAS.violeta, NOTAS.praline],
+      base: [NOTAS.habaTonka, NOTAS.cedro, NOTAS.ambarGris, NOTAS.musgo],
+    },
     imagen: "/decants/vulcan-feu.png",
     clima: ["calido"],
     temporadas: ["verano", "primavera"],
@@ -60,6 +68,11 @@ export const PERFUMES: Perfume[] = [
     descripcion:
       "Un aroma intenso con bourbon, café y especias que proyecta fuerza y elegancia nocturna.",
     notas: ["Bourbon", "Café", "Cardamomo", "Ámbar"],
+    piramide: {
+      salida: [NOTAS.lavanda, NOTAS.ciruelaMirabel, NOTAS.pimientaRosa],
+      corazon: [NOTAS.cacao, NOTAS.nuezMoscada, NOTAS.davana],
+      base: [NOTAS.vainillaBourbon, NOTAS.ambar, NOTAS.vetiver],
+    },
     imagen: "/decants/asad-bourbon.png",
     clima: ["calido"],
     temporadas: ["invierno", "otono"],
@@ -72,6 +85,11 @@ export const PERFUMES: Perfume[] = [
     descripcion:
       "Café con leche, dátil y especias dulces para un gourmand adictivo de gran estela.",
     notas: ["Café", "Dátil", "Canela", "Praliné"],
+    piramide: {
+      salida: [NOTAS.canela, NOTAS.cardamomo, NOTAS.jengibre],
+      corazon: [NOTAS.praline, NOTAS.frutasConfitadas, NOTAS.floresBlancas],
+      base: [NOTAS.cafe, NOTAS.vainilla, NOTAS.habaTonka, NOTAS.benjui, NOTAS.almizcle],
+    },
     imagen: "/decants/khamrah-qahwa.png",
     clima: ["frio"],
     temporadas: ["invierno", "otono"],
@@ -84,6 +102,11 @@ export const PERFUMES: Perfume[] = [
     descripcion:
       "Fresco y afrutado con un fondo amaderado; versátil para el uso diario y de oficina.",
     notas: ["Piña", "Bergamota", "Cuero", "Pachulí"],
+    piramide: {
+      salida: [NOTAS.lima, NOTAS.menta, NOTAS.toronja, NOTAS.lavanda, NOTAS.pina],
+      corazon: [NOTAS.bayaEnebro, NOTAS.romero, NOTAS.geranio, NOTAS.pimientaNegra, NOTAS.incienso],
+      base: [NOTAS.ambroxan, NOTAS.musgoRoble, NOTAS.vetiver, NOTAS.cachemira, NOTAS.habaTonka],
+    },
     imagen: "/decants/maahir-legacy.png",
     clima: ["calido"],
     temporadas: ["primavera", "otono"],
@@ -96,6 +119,11 @@ export const PERFUMES: Perfume[] = [
     descripcion:
       "Cítrico luminoso y burbujeante, ideal para los días cálidos y luminosos.",
     notas: ["Mandarina", "Naranja", "Neroli", "Almizcle"],
+    piramide: {
+      salida: [NOTAS.mandarina, NOTAS.naranja, NOTAS.azafran, NOTAS.salvia],
+      corazon: [NOTAS.caramelo, NOTAS.habaTonka, NOTAS.tagete],
+      base: [NOTAS.ambroxan, NOTAS.cedro, NOTAS.vetiver],
+    },
     imagen: "/decants/mandarin-sky.png",
     clima: ["frio"],
     temporadas: ["invierno", "otono", "primavera"],
@@ -108,6 +136,11 @@ export const PERFUMES: Perfume[] = [
     descripcion:
       "Fresco aromático con lavanda y frutas; elegante, limpio y muy fácil de llevar.",
     notas: ["Lavanda", "Manzana", "Ámbar", "Vainilla"],
+    piramide: {
+      salida: [NOTAS.lavanda, NOTAS.menta, NOTAS.salvia],
+      corazon: [NOTAS.vainilla, NOTAS.tabaco, NOTAS.azahar],
+      base: [NOTAS.habaTonka, NOTAS.benjui, NOTAS.ladano],
+    },
     imagen: "/decants/fakhar-gold.webp",
     clima: ["frio", "calido"],
     temporadas: ["primavera", "verano", "otono"],
