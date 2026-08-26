@@ -155,10 +155,10 @@ export const PERFUMES: Perfume[] = [
     notas: [],
     piramide: {
       salida: [NOTAS.cardamomo, NOTAS.pimientaRosa, NOTAS.menta],
-      corazon: [NOTAS.salvia, NOTAS.pina],
-      base: [NOTAS.vainilla, NOTAS.vainilla, NOTAS.cedro],
+      corazon: [NOTAS.notasAcuaticas, NOTAS.salvia, NOTAS.pina],
+      base: [NOTAS.amberwood, NOTAS.vainilla, NOTAS.cedro],
     },
-    imagen: "/decants/odyssey-homme-white.png",
+    imagen: "/decants/armaf-odyssey-homme-white.png",
     clima: ["calido"],
     temporadas: ["primavera", "verano"],
     decants: DECANTS_ESTANDAR,
