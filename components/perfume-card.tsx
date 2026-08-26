@@ -1,3 +1,6 @@
+"use client"
+
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { precioMostrar, type Perfume } from "@/lib/perfumes"
 import { PiramideNotas } from "@/components/piramide-notas"
@@ -40,13 +43,42 @@ export function PerfumeCard({
   pedestal?: PedestalVariant
 }) {
   const p = PEDESTALES[pedestal]
+  const [activa, setActiva] = useState(false)
+  const ref = useRef<HTMLElement>(null)
+
+  // En pantallas táctiles no existe :hover, así que un toque alterna
+  // el mismo estado "activo" que el hover simula en escritorio.
+  useEffect(() => {
+    function alTocarFuera(e: PointerEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setActiva(false)
+      }
+    }
+    document.addEventListener("pointerdown", alTocarFuera)
+    return () => document.removeEventListener("pointerdown", alTocarFuera)
+  }, [])
+
   return (
-    <article className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-[0_10px_30px_rgba(0,0,0,0.7)] transition-all duration-300 hover:-translate-y-1.5 hover:border-primary hover:shadow-[0_15px_35px_rgba(212,175,55,0.2)]">
+    <article
+      ref={ref}
+      data-active={activa}
+      onClick={() => setActiva((v) => !v)}
+      role="button"
+      tabIndex={0}
+      aria-pressed={activa}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault()
+          setActiva((v) => !v)
+        }
+      }}
+      className="group relative flex cursor-pointer flex-col overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-[0_10px_30px_rgba(0,0,0,0.7)] transition-all duration-300 hover:-translate-y-1.5 hover:border-primary hover:shadow-[0_15px_35px_rgba(212,175,55,0.2)] data-[active=true]:-translate-y-1.5 data-[active=true]:border-primary data-[active=true]:shadow-[0_15px_35px_rgba(212,175,55,0.2)]"
+    >
       {/* Módulo visual: frasco sobre pedestal de mármol con halo dorado */}
       <div className="relative flex h-70 items-end justify-center overflow-hidden rounded-xl">
         <div
           aria-hidden
-          className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(212,175,55,0.15)_0%,transparent_70%)] transition-all duration-500 group-hover:bg-[radial-gradient(circle_at_50%_45%,rgba(212,175,55,0.28)_0%,transparent_70%)]"
+          className="absolute inset-0 bg-[radial-gradient(circle_at_50%_45%,rgba(212,175,55,0.15)_0%,transparent_70%)] transition-all duration-500 group-hover:bg-[radial-gradient(circle_at_50%_45%,rgba(212,175,55,0.28)_0%,transparent_70%)] group-data-[active=true]:bg-[radial-gradient(circle_at_50%_45%,rgba(212,175,55,0.28)_0%,transparent_70%)]"
         />
 
         {/* Pedestal / repisa de mármol (imagen completa apoyada abajo) */}
@@ -65,14 +97,14 @@ export function PerfumeCard({
           alt={`Frasco del perfume ${perfume.nombre} de ${perfume.casa}`}
           width={260}
           height={260}
-          className={`absolute left-1/2 z-10 w-auto -translate-x-1/2 object-contain drop-shadow-[0_10px_14px_rgba(0,0,0,0.85)] transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-1 ${p.anchoFrasco} ${p.offsetFrasco}`}
+          className={`absolute left-1/2 z-10 w-auto -translate-x-1/2 object-contain drop-shadow-[0_10px_14px_rgba(0,0,0,0.85)] transition-transform duration-500 ease-out group-hover:-translate-y-1 group-data-[active=true]:-translate-y-1 ${p.anchoFrasco} ${p.offsetFrasco}`}
         />
       </div>
 
       {/* Zona de texto: alterna entre descripción y notas/precios al hacer hover */}
       <div className="relative mt-4 min-h-40">
         {/* Estado por defecto */}
-        <div className="text-center transition-all duration-300 group-hover:-translate-y-4 group-hover:opacity-0">
+        <div className="text-center transition-all duration-300 group-hover:-translate-y-4 group-hover:opacity-0 group-data-[active=true]:-translate-y-4 group-data-[active=true]:opacity-0">
           <p className="text-[11px] tracking-[0.2em] text-muted-foreground uppercase">
             {perfume.casa}
           </p>
@@ -84,8 +116,8 @@ export function PerfumeCard({
           </p>
         </div>
 
-        {/* Estado hover: notas y precios de decants */}
-        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:opacity-100">
+        {/* Estado hover/activo: notas y precios de decants */}
+        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:opacity-100 group-data-[active=true]:pointer-events-auto group-data-[active=true]:opacity-100">
 
           <div className="mt-4 space-y-0.5 text-sm text-muted-foreground">
             {perfume.decants.map((d) => (
@@ -97,8 +129,8 @@ export function PerfumeCard({
           </div>
         </div>
       </div>
-      {/* Panel hover: pirámide olfativa con miniaturas + precios de decants */}
-      <div className="pointer-events-none absolute inset-0 z-20 flex flex-col overflow-y-auto bg-card/95 p-5 opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:pointer-events-auto group-hover:opacity-100">
+      {/* Panel hover/activo: pirámide olfativa con miniaturas + precios de decants */}
+      <div className="pointer-events-none absolute inset-0 z-20 flex flex-col overflow-y-auto bg-card/95 p-5 opacity-0 backdrop-blur-sm transition-opacity duration-300 group-hover:pointer-events-auto group-hover:opacity-100 group-data-[active=true]:pointer-events-auto group-data-[active=true]:opacity-100">
         <header className="text-center">
           <p className="text-[10px] tracking-[0.22em] text-muted-foreground uppercase">
             {perfume.casa}

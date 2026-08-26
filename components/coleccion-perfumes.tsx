@@ -9,13 +9,8 @@ import {
   type Clima,
   type Temporada,
 } from "@/lib/perfumes"
-import { PerfumeCard, type PedestalVariant } from "@/components/perfume-card"
+import { PerfumeCard } from "@/components/perfume-card"
 import { cn } from "@/lib/utils"
-
-const PEDESTALES: { valor: PedestalVariant; etiqueta: string }[] = [
-  { valor: "podio", etiqueta: "Podio de mármol" },
-  { valor: "losa", etiqueta: "Losa de mármol" },
-]
 
 function Chip({
   activo,
@@ -47,7 +42,6 @@ export function ColeccionPerfumes() {
   const [temporadas, setTemporadas] = useState<Temporada[]>([])
   const [momentos, setMomentos] = useState<Clima[]>([])
   const [busqueda, setBusqueda] = useState("")
-  const [pedestal, setPedestal] = useState<PedestalVariant>("podio")
 
   function toggle<T>(lista: T[], valor: T, set: (v: T[]) => void) {
     set(lista.includes(valor) ? lista.filter((x) => x !== valor) : [...lista, valor])
@@ -167,29 +161,11 @@ export function ColeccionPerfumes() {
           </div>
         </div>
 
-        {/* Selector de estilo de pedestal (vista previa) */}
-        <div className="mb-8 flex flex-col items-center gap-3">
-          <span className="text-[11px] tracking-[0.2em] text-muted-foreground uppercase">
-            Estilo de repisa
-          </span>
-          <div className="flex flex-wrap justify-center gap-2">
-            {PEDESTALES.map((op) => (
-              <Chip
-                key={op.valor}
-                activo={pedestal === op.valor}
-                onClick={() => setPedestal(op.valor)}
-              >
-                {op.etiqueta}
-              </Chip>
-            ))}
-          </div>
-        </div>
-
         {/* Grilla de resultados */}
         {filtrados.length > 0 ? (
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {filtrados.map((p) => (
-              <PerfumeCard key={p.id} perfume={p} pedestal={pedestal} />
+              <PerfumeCard key={p.id} perfume={p} pedestal="podio" />
             ))}
           </div>
         ) : (
