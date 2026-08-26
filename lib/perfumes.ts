@@ -17,7 +17,7 @@ export type Perfume = {
   nombre: string
   casa: string
   descripcion: string
-  notas : string[]
+  notas: string[]
   piramide: Piramide
   imagen: string
   temporadas: Temporada[]
@@ -158,24 +158,24 @@ export const PERFUMES: Perfume[] = [
       corazon: [NOTAS.salvia, NOTAS.pina],
       base: [NOTAS.vainilla, NOTAS.vainilla, NOTAS.cedro],
     },
-    imagen: "/decants/fakhar-gold.webp",
+    imagen: "/decants/odyssey-homme-white.png",
     clima: ["calido"],
     temporadas: ["primavera", "verano"],
     decants: DECANTS_ESTANDAR,
   },
   {
     id: "armaf-odyssey-homme",
-    nombre: "Odyssey Homme", 
+    nombre: "Odyssey Homme",
     casa: "Armaf",
     descripcion:
       "¡Oscuridad irresistible! Vainilla profunda y maderas ricas envueltas en un ámbar seductor. Úsalo para acaparar la atención en cenas románticas y eventos formales.",
-      notas: [],
+    notas: [],
     piramide: {
       salida: [NOTAS.cardamomo, NOTAS.neroli, NOTAS.mandarina],
       corazon: [NOTAS.florNaranjo, NOTAS.rosa],
-      base: [NOTAS.vainilla, NOTAS.maderas, NOTAS.sandalo,NOTAS.ambar],
+      base: [NOTAS.vainilla, NOTAS.maderas, NOTAS.sandalo, NOTAS.ambar],
     },
-    imagen: "/decants/fakhar-gold.webp",
+    imagen: "/decants/armaf-odyssey-homme.png",
     clima: ["frio"],
     temporadas: ["invierno", "otono"],
     decants: DECANTS_ESTANDAR,
@@ -192,7 +192,7 @@ export const PERFUMES: Perfume[] = [
       corazon: [NOTAS.notasAcuaticas, NOTAS.romero, NOTAS.salvia, NOTAS.geranio],
       base: [NOTAS.ambroxan, NOTAS.ambar, NOTAS.ladano],
     },
-    imagen: "/decants/fakhar-gold.webp",
+    imagen: "/decants/jean-lowe-immortal.png",
     clima: ["calido"],
     temporadas: ["primavera", "verano"],
     decants: DECANTS_ESTANDAR,
