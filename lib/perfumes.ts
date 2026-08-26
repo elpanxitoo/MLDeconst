@@ -147,8 +147,8 @@ export const PERFUMES: Perfume[] = [
     decants: DECANTS_ESTANDAR,
   },
   {
-    id: "armaf-odyssey-homme-white",
-    nombre: "Odyssey Homme White ",
+    id: "rasasi-hawas-ice",
+    nombre: "Rasasi Hawas Ice",
     casa: "Armaf",
     descripcion:
       "¡Magnetismo moderno! Piña fresca y menta vibrante envueltas en un cardamomo cálido. Úsalo para dominar tu rutina diaria y dejar una huella segura en la oficina.",
@@ -164,8 +164,8 @@ export const PERFUMES: Perfume[] = [
     decants: DECANTS_ESTANDAR,
   },
   {
-    id: "armaf-odyssey-homme",
-    nombre: "Odyssey Homme",
+    id: "rayhaan-aquatica",
+    nombre: "Rayhaan Aquatica",
     casa: "Armaf",
     descripcion:
       "¡Oscuridad irresistible! Vainilla profunda y maderas ricas envueltas en un ámbar seductor. Úsalo para acaparar la atención en cenas románticas y eventos formales.",
@@ -178,23 +178,6 @@ export const PERFUMES: Perfume[] = [
     imagen: "/decants/armaf-odyssey-homme.png",
     clima: ["frio"],
     temporadas: ["invierno", "otono"],
-    decants: DECANTS_ESTANDAR,
-  },
-  {
-    id: "jean-lowe-immortal",
-    nombre: "Jean Lowe Immortal",
-    casa: "Maison Alhambra",
-    descripcion:
-      "¡Clase y sofisticación pura! Toronja explosiva y jengibre picante sobre maderas elegantes. Úsalo para irradiar autoridad y un estilo impecable en los días de calor.",
-    notas: [],
-    piramide: {
-      salida: [NOTAS.jengibre, NOTAS.toronja, NOTAS.bergamota],
-      corazon: [NOTAS.notasAcuaticas, NOTAS.romero, NOTAS.salvia, NOTAS.geranio],
-      base: [NOTAS.ambroxan, NOTAS.ambar, NOTAS.ladano],
-    },
-    imagen: "/decants/jean-lowe-immortal.png",
-    clima: ["calido"],
-    temporadas: ["primavera", "verano"],
     decants: DECANTS_ESTANDAR,
   },
 
