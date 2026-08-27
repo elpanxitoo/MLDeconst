@@ -10,7 +10,7 @@ export function PerfumeDetailModal() {
   const [perfume, setPerfume] = useState<Perfume | null>(null)
   const [decantIdx, setDecantIdx] = useState(0)
   const [cantidad, setCantidad] = useState(1)
-  const [piramideAbierta, setPiramideAbierta] = useState(true)
+  const [piramideAbierta, setPiramideAbierta] = useState(false)
   const overlayRef = useRef<HTMLDivElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
 
@@ -137,7 +137,7 @@ export function PerfumeDetailModal() {
             Parecido a <span className="font-medium text-foreground">{perfume.casa} {perfume.nombre}</span>
           </p>
 
-          {/* Precio sin descuento */}
+          {/* Precio */}
           <div className="mt-3 flex items-baseline gap-2">
             <span className="text-2xl font-bold text-foreground">{precioMostrar(decant.precio)}</span>
             <span className="text-xs tracking-wide text-muted-foreground uppercase">
@@ -182,27 +182,25 @@ export function PerfumeDetailModal() {
             </li>
           </ul>
 
-          {/* Pirámide en móvil - acordeón cerrado por defecto */}
-<<<<<<< HEAD
+          {/* Pirámide en móvil - acordeón */}
           <div className="mt-4 overflow-collapsed rounded-xl border border-white/5 bg-white/[0.03] md:hidden">
-=======
-          <div className="mt-4 overflow rounded-xl border border-white/5 bg-white/[0.03] md:hidden">
->>>>>>> 0a6cbdf08818e13ce6bfdeb9d1bfca078c6d7243
             <button
               type="button"
               onClick={() => setPiramideAbierta((v) => !v)}
               aria-expanded={piramideAbierta}
+              aria-controls="piramide-contenido-movil"
               className="flex w-full items-center justify-between px-3 py-3 text-left"
             >
               <span className="text-xs font-semibold tracking-[0.14em] text-foreground uppercase">
                 Pirámide olfativa
               </span>
               <ChevronDown
+                aria-hidden
                 className={`size-4 shrink-0 text-muted-foreground transition-transform duration-200 ${piramideAbierta ? "rotate-180" : ""}`}
               />
             </button>
             {piramideAbierta && (
-              <div className="border-t border-white/5 p-3">
+              <div id="piramide-contenido-movil" role="region" className="border-t border-white/5 p-3">
                 <PiramideNotas piramide={perfume.piramide} />
               </div>
             )}
