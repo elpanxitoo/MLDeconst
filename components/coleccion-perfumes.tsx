@@ -162,9 +162,14 @@ export function ColeccionPerfumes() {
           </div>
         </div>
 
+        {/* Hint solo móvil, como en la captura */}
+        <p className="mb-4 text-sm text-muted-foreground md:hidden">
+          Toca cualquier producto para ver el detalle completo, elegir la cantidad y realizar tu compra.
+        </p>
+
         {/* Grilla de resultados */}
         {filtrados.length > 0 ? (
-          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-3 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 md:gap-8">
             {filtrados.map((p) => (
               <PerfumeCard key={p.id} perfume={p} pedestal="podio" />
             ))}

@@ -38,11 +38,6 @@ export const clima: { valor: Clima; etiqueta: string }[] = [
   { valor: "calido", etiqueta: "Cálido" },
 ]
 
-const DECANTS_ESTANDAR: Decant[] = [
-  { ml: 5, sprays: 90, precio: 2000 },
-  { ml: 10, sprays: 160, precio: 3000 },
-]
-
 export const PERFUMES: Perfume[] = [
   {
     id: "vulcan-feu",
@@ -59,7 +54,10 @@ export const PERFUMES: Perfume[] = [
     imagen: "/decants/vulcan-feu.png",
     clima: ["calido"],
     temporadas: ["verano", "primavera"],
-    decants: DECANTS_ESTANDAR,
+    decants: [
+      { ml: 5, sprays: 90, precio: 14990 },
+      { ml: 10, sprays: 160, precio: 23391 },
+    ],
   },
   {
     id: "asad-bourbon",
@@ -76,7 +74,10 @@ export const PERFUMES: Perfume[] = [
     imagen: "/decants/asad-bourbon.png",
     clima: ["calido"],
     temporadas: ["invierno", "otono"],
-    decants: DECANTS_ESTANDAR,
+    decants: [
+      { ml: 5, sprays: 90, precio: 16990 },
+      { ml: 10, sprays: 160, precio: 25990 },
+    ],
   },
   {
     id: "khamrah-qahwa",
@@ -93,7 +94,10 @@ export const PERFUMES: Perfume[] = [
     imagen: "/decants/khamrah-qahwa.png",
     clima: ["frio"],
     temporadas: ["invierno", "otono"],
-    decants: DECANTS_ESTANDAR,
+    decants: [
+      { ml: 5, sprays: 90, precio: 13990 },
+      { ml: 10, sprays: 160, precio: 21990 },
+    ],
   },
   {
     id: "maahir-legacy",
@@ -110,7 +114,10 @@ export const PERFUMES: Perfume[] = [
     imagen: "/decants/maahir-legacy.png",
     clima: ["calido"],
     temporadas: ["primavera", "otono"],
-    decants: DECANTS_ESTANDAR,
+    decants: [
+      { ml: 5, sprays: 90, precio: 11990 },
+      { ml: 10, sprays: 160, precio: 18990 },
+    ],
   },
   {
     id: "mandarin-sky",
@@ -127,7 +134,10 @@ export const PERFUMES: Perfume[] = [
     imagen: "/decants/mandarin-sky.png",
     clima: ["frio"],
     temporadas: ["invierno", "otono", "primavera"],
-    decants: DECANTS_ESTANDAR,
+    decants: [
+      { ml: 5, sprays: 90, precio: 15990 },
+      { ml: 10, sprays: 160, precio: 24990 },
+    ],
   },
   {
     id: "the-kingdom",
@@ -144,7 +154,10 @@ export const PERFUMES: Perfume[] = [
     imagen: "/decants/fakhar-gold.webp",
     clima: ["frio", "calido"],
     temporadas: ["primavera", "verano", "otono"],
-    decants: DECANTS_ESTANDAR,
+    decants: [
+      { ml: 5, sprays: 90, precio: 9990 },
+      { ml: 10, sprays: 160, precio: 15990 },
+    ],
   },
   {
     id: "rasasi-hawas-ice",
@@ -161,7 +174,10 @@ export const PERFUMES: Perfume[] = [
     imagen: "/decants/armaf-odyssey-homme-white.png",
     clima: ["calido"],
     temporadas: ["primavera", "verano"],
-    decants: DECANTS_ESTANDAR,
+    decants: [
+      { ml: 5, sprays: 90, precio: 10990 },
+      { ml: 10, sprays: 160, precio: 17990 },
+    ],
   },
   {
     id: "rayhaan-aquatica",
@@ -178,7 +194,10 @@ export const PERFUMES: Perfume[] = [
     imagen: "/decants/armaf-odyssey-homme.png",
     clima: ["frio"],
     temporadas: ["invierno", "otono"],
-    decants: DECANTS_ESTANDAR,
+    decants: [
+      { ml: 5, sprays: 90, precio: 12990 },
+      { ml: 10, sprays: 160, precio: 19990 },
+    ],
   },
 
   /*
