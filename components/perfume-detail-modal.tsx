@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import { Minus, Plus, ShieldCheck, ShoppingCart, Sparkles, Truck, X } from "lucide-react"
+import { ChevronDown, Minus, Plus, ShieldCheck, ShoppingCart, Sparkles, Truck, X } from "lucide-react"
 import { PERFUMES, precioMostrar, type Perfume } from "@/lib/perfumes"
 import { PiramideNotas } from "@/components/piramide-notas"
 
@@ -10,6 +10,7 @@ export function PerfumeDetailModal() {
   const [perfume, setPerfume] = useState<Perfume | null>(null)
   const [decantIdx, setDecantIdx] = useState(0)
   const [cantidad, setCantidad] = useState(1)
+  const [piramideAbierta, setPiramideAbierta] = useState(true)
   const overlayRef = useRef<HTMLDivElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
 
@@ -29,6 +30,7 @@ export function PerfumeDetailModal() {
       setDecantIdx(0) // default 5 ml
       // setDecantIdx(p.decants.length > 1 ? 1 : 0) // default 10ml si existe
       setCantidad(1)
+      setPiramideAbierta(false) // acordeón cerrado por defecto en móvil
     }
   }
 
@@ -175,23 +177,35 @@ export function PerfumeDetailModal() {
             <li className="flex items-center gap-2 text-muted-foreground">
               <Sparkles className="size-3.5 text-primary" /> <span><span className="text-foreground">Contenido:</span> {decant.ml} ml</span>
             </li>
-            {/* Género comentado - reactivar si se necesita
-            <li className="flex items-center gap-2 text-muted-foreground">
-              <Sparkles className="size-3.5 text-primary" /> <span><span className="text-foreground">Género:</span> {genero}</span>
-            </li>
-            */}
             <li className="flex items-center gap-2 text-muted-foreground">
               <Sparkles className="size-3.5 text-primary" /> <span><span className="text-foreground">Estilo:</span> {estilo}</span>
             </li>
           </ul>
 
-          {/* Pirámide en móvil */}
-          <div className="mt-4 rounded-xl border border-white/5 bg-white/[0.03] p-3 md:hidden">
-            <PiramideNotas piramide={perfume.piramide} />
+          {/* Pirámide en móvil - acordeón cerrado por defecto */}
+          <div className="mt-4 overflow rounded-xl border border-white/5 bg-white/[0.03] md:hidden">
+            <button
+              type="button"
+              onClick={() => setPiramideAbierta((v) => !v)}
+              aria-expanded={piramideAbierta}
+              className="flex w-full items-center justify-between px-3 py-3 text-left"
+            >
+              <span className="text-xs font-semibold tracking-[0.14em] text-foreground uppercase">
+                Pirámide olfativa
+              </span>
+              <ChevronDown
+                className={`size-4 shrink-0 text-muted-foreground transition-transform duration-200 ${piramideAbierta ? "rotate-180" : ""}`}
+              />
+            </button>
+            {piramideAbierta && (
+              <div className="border-t border-white/5 p-3">
+                <PiramideNotas piramide={perfume.piramide} />
+              </div>
+            )}
           </div>
 
           {/* Cantidad */}
-          <div className="mt-5 flex items-center gap-3 border-t border-white/10 pt-4">
+          {/* <div className="mt-5 flex items-center gap-3 border-t border-white/10 pt-4">
             <div className="flex items-center gap-1 rounded-full border border-white/15 bg-white/[0.04] px-1 py-1">
               <button
                 type="button"
@@ -214,11 +228,11 @@ export function PerfumeDetailModal() {
             <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
               <span className="size-1.5 rounded-full bg-emerald-500" /> 42 disponibles
             </span>
-          </div>
+          </div> */}
 
           {/* Acciones */}
           <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
-            <button
+            {/* <button
               type="button"
               onClick={() => {
                 // placeholder carrito
@@ -228,7 +242,7 @@ export function PerfumeDetailModal() {
             >
               <ShoppingCart className="size-4" />
               Añadir al carrito
-            </button>
+            </button> */}
             <button
               type="button"
               onClick={() => cerrar()}
@@ -245,6 +259,30 @@ export function PerfumeDetailModal() {
             <span className="flex items-center gap-1.5">
               <Truck className="size-3.5" /> Envío a domicilio
             </span>
+          </div>
+
+          {/* Cómo comprar - ocupa el espacio vacío bajo los botones */}
+          <div className="mt-4 rounded-xl border border-white/5 bg-white/[0.03] p-3">
+            <h4 className="text-xs font-semibold tracking-wide text-foreground">¿Cómo comprar?</h4>
+            <ol className="mt-2 flex flex-col gap-1.5 text-xs leading-relaxed text-muted-foreground">
+              <li className="flex gap-2">
+                <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-primary/20 text-[11px] font-bold text-primary">1</span>
+                <span>Elige el formato (5 ml o 10 ml) y la cantidad que deseas.</span>
+              </li>
+              <li className="flex gap-2">
+                <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-primary/20 text-[11px] font-bold text-primary">2</span>
+                <span>
+                  Toca <span className="font-medium text-foreground">Comprar ahora</span> para pedir por WhatsApp
+                </span>
+              </li>
+              <li className="flex gap-2">
+                <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-primary/20 text-[11px] font-bold text-primary">3</span>
+                <span>Te confirmamos stock, coordinamos el pago y el envío a domicilio.</span>
+              </li>
+            </ol>
+            <p className="mt-2.5 border-t border-white/5 pt-2 text-[11px] text-muted-foreground/80">
+              ¿Dudas con la fragancia? Escríbenos y te ayudamos a elegir.
+            </p>
           </div>
         </div>
       </div>
