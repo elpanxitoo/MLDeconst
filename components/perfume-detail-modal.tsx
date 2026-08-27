@@ -183,7 +183,11 @@ export function PerfumeDetailModal() {
           </ul>
 
           {/* Pirámide en móvil - acordeón cerrado por defecto */}
+<<<<<<< HEAD
           <div className="mt-4 overflow-collapsed rounded-xl border border-white/5 bg-white/[0.03] md:hidden">
+=======
+          <div className="mt-4 overflow rounded-xl border border-white/5 bg-white/[0.03] md:hidden">
+>>>>>>> 0a6cbdf08818e13ce6bfdeb9d1bfca078c6d7243
             <button
               type="button"
               onClick={() => setPiramideAbierta((v) => !v)}
