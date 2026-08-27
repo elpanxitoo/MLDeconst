@@ -1,6 +1,12 @@
+"use client"
+
 export function SiteFooter() {
+  function abrirContacto() {
+    window.dispatchEvent(new CustomEvent("abrir-contacto"))
+  }
+
   return (
-    <footer className="border-t border-primary/15 bg-[#080808]">
+    <footer id="contacto" className="border-t border-primary/15 bg-[#080808]">
       <div className="mx-auto grid max-w-7xl gap-10 px-[6%] py-16 md:grid-cols-3">
         <div>
           <h3 className="font-serif text-xl font-bold tracking-[2px] text-gold-gradient uppercase">
@@ -21,8 +27,11 @@ export function SiteFooter() {
           <h4 className="text-xs tracking-[0.2em] text-gold-light uppercase">Navegación</h4>
           <ul className="mt-4 flex flex-col gap-2.5 text-sm text-muted-foreground">
             <li><a href="#Fragancias" className="hover:text-primary">Catálogo Completo</a></li>
-            <li><a href="#marcas" className="hover:text-primary">Marcas de Lujo</a></li>
-            <li><a href="#nicho" className="hover:text-primary">Perfumería Nicho</a></li>
+            <li>
+              <button type="button" onClick={abrirContacto} className="hover:text-primary">
+                Contacto
+              </button>
+            </li>
           </ul>
         </div>
 
@@ -31,10 +40,26 @@ export function SiteFooter() {
             Atención al Cliente
           </h4>
           <ul className="mt-4 flex flex-col gap-2.5 text-sm text-muted-foreground">
-            <li><a href="#" className="hover:text-primary">Preguntas Frecuentes</a></li>
-            <li><a href="#" className="hover:text-primary">Envíos y Entregas</a></li>
-            <li><a href="#" className="hover:text-primary">Garantía de Autenticidad</a></li>
-            <li><a href="#" className="hover:text-primary">Términos y Condiciones</a></li>
+            <li>
+              <button type="button" onClick={abrirContacto} className="hover:text-primary">
+                Preguntas Frecuentes
+              </button>
+            </li>
+            <li>
+              <button type="button" onClick={abrirContacto} className="hover:text-primary">
+                Envíos y Entregas
+              </button>
+            </li>
+            <li>
+              <button type="button" onClick={abrirContacto} className="hover:text-primary">
+                Garantía de Autenticidad
+              </button>
+            </li>
+            <li>
+              <button type="button" onClick={abrirContacto} className="hover:text-primary">
+                Términos y Condiciones
+              </button>
+            </li>
           </ul>
         </div>
       </div>

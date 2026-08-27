@@ -101,9 +101,8 @@ export function PerfumeCard({
         />
       </div>
 
-      {/* Zona de texto: alterna entre descripción y notas/precios al hacer hover */}
+      {/* Zona de texto: descripción (se oculta en hover para mostrar pirámide) */}
       <div className="relative mt-4 min-h-40">
-        {/* Estado por defecto */}
         <div className="text-center transition-all duration-300 group-hover:-translate-y-4 group-hover:opacity-0 group-data-[active=true]:-translate-y-4 group-data-[active=true]:opacity-0">
           <p className="text-[11px] tracking-[0.2em] text-muted-foreground uppercase">
             {perfume.casa}
@@ -114,19 +113,6 @@ export function PerfumeCard({
           <p className="mt-2 text-sm leading-relaxed text-muted-foreground text-pretty">
             {perfume.descripcion}
           </p>
-        </div>
-
-        {/* Estado hover/activo: notas y precios de decants */}
-        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center opacity-0 transition-all duration-300 group-hover:pointer-events-auto group-hover:opacity-100 group-data-[active=true]:pointer-events-auto group-data-[active=true]:opacity-100">
-
-          <div className="mt-4 space-y-0.5 text-sm text-muted-foreground">
-            {perfume.decants.map((d) => (
-              <p key={d.ml}>
-                <span className="text-foreground">{d.ml} ML</span> (~{d.sprays} atomizaciones){" "}
-                <span className="text-primary">{precioMostrar(d.precio)}</span>
-              </p>
-            ))}
-          </div>
         </div>
       </div>
       {/* Panel hover/activo: pirámide olfativa con miniaturas + precios de decants */}

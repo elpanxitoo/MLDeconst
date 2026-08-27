@@ -1,20 +1,13 @@
+"use client"
+
 import Image from "next/image"
 
 export function Hero() {
+  function abrirContacto() {
+    window.dispatchEvent(new CustomEvent("abrir-contacto"))
+  }
   return (
     <header className="relative flex min-h-screen items-center justify-between gap-8 px-[6%] pt-32 pb-16">
-      {/* Fondo de mármol negro con vetas doradas */}
-      <div aria-hidden className="absolute inset-0 -z-10">
-        <Image
-          src="/decants/marmol.webp"
-          alt=""
-          fill
-          priority
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-background/70" />
-      </div>
-
       {/* Contenido */}
       <div className="max-w-xl">
         <span className="inline-flex items-center gap-2 rounded-full border border-border bg-primary/5 px-3.5 py-1.5 text-xs tracking-[2px] text-gold-light uppercase">
@@ -37,12 +30,13 @@ export function Hero() {
           >
             Explorar Catálogo
           </a>
-          <a
-            href="#"
+          <button
+            type="button"
+            onClick={abrirContacto}
             className="rounded border border-border bg-white/[0.02] px-8 py-4 text-sm tracking-[1.5px] text-foreground uppercase transition-colors hover:border-primary hover:bg-primary/10"
           >
             Contactanos
-          </a>
+          </button>
         </div>
 
         <div className="mt-14 flex gap-10 border-t border-white/10 pt-8">

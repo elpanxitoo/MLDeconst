@@ -9,6 +9,7 @@ import {
   type Clima,
   type Temporada,
 } from "@/lib/perfumes"
+import { nombresDeNotas } from "@/lib/notas"
 import { PerfumeCard } from "@/components/perfume-card"
 import { cn } from "@/lib/utils"
 
@@ -58,7 +59,7 @@ export function ColeccionPerfumes() {
         q === "" ||
         p.nombre.toLowerCase().includes(q) ||
         p.casa.toLowerCase().includes(q) ||
-        p.notas.some((n) => n.toLowerCase().includes(q))
+        nombresDeNotas(p.piramide).some((n) => n.toLowerCase().includes(q))
       return okTemporada && okMomento && okBusqueda
     })
   }, [temporadas, momentos, busqueda])
