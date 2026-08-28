@@ -10,7 +10,7 @@ export function PerfumeDetailModal() {
   const [perfume, setPerfume] = useState<Perfume | null>(null)
   const [decantIdx, setDecantIdx] = useState(0)
   const [cantidad, setCantidad] = useState(1)
-  const [piramideAbierta, setPiramideAbierta] = useState(false)
+  const [piramideAbierta, setPiramideAbierta] = useState(true)
   const overlayRef = useRef<HTMLDivElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
 
@@ -30,7 +30,7 @@ export function PerfumeDetailModal() {
       setDecantIdx(0) // default 5 ml
       // setDecantIdx(p.decants.length > 1 ? 1 : 0) // default 10ml si existe
       setCantidad(1)
-      setPiramideAbierta(false) // acordeón cerrado por defecto en móvil
+      setPiramideAbierta(false) // acordeón abierto por defecto en móvil
     }
   }
 
@@ -92,15 +92,19 @@ export function PerfumeDetailModal() {
           <X className="size-4" />
         </button>
 
-        {/* Imagen - arriba en móvil, izq en desktop */}
+        {/* Imagen - arriba en móvil, izq en desktop - sin fondo blanco */}
         <div className="relative flex shrink-0 flex-col bg-[#1c1c1c] p-3 md:w-[48%] md:p-4">
-          <div className="relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-xl bg-white p-4">
+          <div className="relative flex aspect-square w-full items-center justify-center overflow-hidden rounded-xl bg-transparent p-4">
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(212,175,55,0.18)_0%,transparent_65%)]"
+            />
             <Image
               src={perfume.imagen || "/placeholder.svg"}
               alt={`${perfume.nombre} de ${perfume.casa}`}
               width={500}
               height={500}
-              className="h-full w-full object-contain"
+              className="relative z-10 h-full w-full object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.9)]"
             />
           </div>
           {/* Mini pirámide visible solo en modal para dar valor */}
@@ -182,7 +186,7 @@ export function PerfumeDetailModal() {
             </li>
           </ul>
 
-          {/* Pirámide en móvil - acordeón */}
+          {/* Pirámide en móvil - acordeón visible y abierto por defecto */}
           <div className="mt-4 overflow-collapsed rounded-xl border border-white/5 bg-white/[0.03] md:hidden">
             <button
               type="button"

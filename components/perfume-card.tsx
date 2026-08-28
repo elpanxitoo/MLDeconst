@@ -14,15 +14,15 @@ const PEDESTALES: Record<
     src: "/decants/pedestal-podio.png",
     alto: "h-[45%]",
     anchoFrasco: "max-h-28 md:max-h-52",
-    offsetFrasco: "bottom-[15%]",
-    offsetPedestal: "bottom-[-8%]",
+    offsetFrasco: "bottom-[7.5%] md:bottom-[15%]",
+    offsetPedestal: "bottom-[-6%] md:bottom-[-8%]", //md:bottom escritorio
   },
   losa: {
     src: "/decants/pedestal-losa.png",
     alto: "h-[100%]",
     anchoFrasco: "max-h-28 md:max-h-52",
-    offsetFrasco: "bottom-[20%]",
-    offsetPedestal: "bottom-[-33%]",
+    offsetFrasco: "bottom-[11%] md:bottom-[20%]",
+    offsetPedestal: "bottom-[-28%] md:bottom-[-33%]",
   },
 }
 

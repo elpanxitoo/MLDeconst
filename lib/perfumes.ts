@@ -151,7 +151,7 @@ export const PERFUMES: Perfume[] = [
       corazon: [NOTAS.vainilla, NOTAS.tabaco, NOTAS.azahar],
       base: [NOTAS.habaTonka, NOTAS.benjui, NOTAS.ladano],
     },
-    imagen: "/decants/fakhar-gold.webp",
+    imagen: "/decants/fakhar-gold.png",
     clima: ["frio", "calido"],
     temporadas: ["primavera", "verano", "otono"],
     decants: [
