@@ -1,5 +1,6 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import { precioMostrar, type Perfume } from "@/lib/perfumes"
 import { PiramideNotas } from "@/components/piramide-notas"
@@ -41,6 +42,33 @@ export function PerfumeCard({
 
   // Precio destacado "Desde" -> el más barato (5 ml por default)
   const decantCard = perfume.decants[0] ?? perfume.decants[perfume.decants.length - 1]
+  const [stockMl, setStockMl] = useState(perfume.stockMl ?? 60)
+  const agotado = stockMl <= 0
+
+  useEffect(() => {
+    const guardado = localStorage.getItem(`ml-stock-${perfume.id}`)
+    if (guardado !== null) {
+      const v = parseInt(guardado, 10)
+      if (!isNaN(v)) setStockMl(v)
+    }
+    function onStock(e: Event) {
+      const detail = (e as CustomEvent<{ id: string; stockMl: number }>).detail
+      if (detail?.id === perfume.id) setStockMl(detail.stockMl)
+    }
+    window.addEventListener("stock-actualizado", onStock as EventListener)
+    // también escucha cambios de storage entre pestañas
+    function onStorage(ev: StorageEvent) {
+      if (ev.key === `ml-stock-${perfume.id}` && ev.newValue !== null) {
+        const v = parseInt(ev.newValue, 10)
+        if (!isNaN(v)) setStockMl(v)
+      }
+    }
+    window.addEventListener("storage", onStorage)
+    return () => {
+      window.removeEventListener("stock-actualizado", onStock as EventListener)
+      window.removeEventListener("storage", onStorage)
+    }
+  }, [perfume.id, perfume.stockMl])
 
   return (
     <article
@@ -76,8 +104,15 @@ export function PerfumeCard({
           alt={`Frasco del perfume ${perfume.nombre} de ${perfume.casa}`}
           width={260}
           height={260}
-          className={`absolute left-1/2 z-10 w-auto -translate-x-1/2 object-contain drop-shadow-[0_10px_14px_rgba(0,0,0,0.85)] transition-transform duration-500 ease-out group-hover:-translate-y-1 ${p.anchoFrasco} ${p.offsetFrasco}`}
+          className={`absolute left-1/2 z-10 w-auto -translate-x-1/2 object-contain drop-shadow-[0_10px_14px_rgba(0,0,0,0.85)] transition-transform duration-500 ease-out group-hover:-translate-y-1 ${p.anchoFrasco} ${p.offsetFrasco} ${agotado ? "grayscale opacity-50" : ""}`}
         />
+        {agotado && (
+          <div className="absolute inset-0 z-20 flex items-center justify-center rounded-xl bg-black/60 backdrop-blur-[1px]">
+            <span className="rounded-full bg-white px-5 py-1.5 text-xs font-bold tracking-[0.18em] text-black uppercase shadow-lg">
+              Agotado
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Zona de texto */}
@@ -92,8 +127,8 @@ export function PerfumeCard({
           <p className="mt-1.5 line-clamp-2 text-xs leading-relaxed text-muted-foreground md:mt-2 md:line-clamp-none md:text-sm">
             {perfume.descripcion}
           </p>
-          <p className="mt-2 text-xs font-bold text-primary md:mt-2 md:text-sm">
-            Desde {precioMostrar(decantCard.precio)}
+          <p className={`mt-2 text-xs font-bold md:mt-2 md:text-sm ${agotado ? "text-muted-foreground" : "text-primary"}`}>
+            {agotado ? "Agotado" : `Desde ${precioMostrar(decantCard.precio)}`}
           </p>
           <p className="mt-1 hidden text-xs font-medium tracking-wide text-primary/80 md:block">Ver detalle → presione la imagen</p>
         </div>

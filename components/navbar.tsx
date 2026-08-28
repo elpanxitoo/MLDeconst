@@ -1,7 +1,8 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Menu, X } from "lucide-react"
+import { Menu, ShoppingBag, X } from "lucide-react"
+import { useCart } from "@/components/cart-context"
 
 const ENLACES = [{ href: "#Fragancias", texto: "Catálogo" }]
 
@@ -9,6 +10,7 @@ export function Navbar() {
   const [abierto, setAbierto] = useState(false)
   const [visible, setVisible] = useState(true)
   const ultimaY = useRef(0)
+  const { count, setOpen: setCartOpen } = useCart()
 
   function abrirContacto() {
     window.dispatchEvent(new CustomEvent("abrir-contacto"))
@@ -99,19 +101,48 @@ export function Navbar() {
             Contacto
           </button>
         </li>
+        <li>
+          <button
+            type="button"
+            onClick={() => setCartOpen(true)}
+            aria-label={`Carrito ${count} productos`}
+            className="relative flex size-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-foreground transition-colors hover:bg-white/10"
+          >
+            <ShoppingBag className="size-4" />
+            {count > 0 && (
+              <span className="absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">
+                {count}
+              </span>
+            )}
+          </button>
+        </li>
       </ul>
 
-      {/* Botón hamburguesa - solo móvil */}
-      <button
-        type="button"
-        aria-label={abierto ? "Cerrar menú" : "Abrir menú"}
-        aria-expanded={abierto}
-        aria-controls="navbar-movil"
-        onClick={() => setAbierto((v) => !v)}
-        className="flex size-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-foreground transition-colors hover:bg-white/10 md:hidden"
-      >
-        {abierto ? <X className="size-5" /> : <Menu className="size-5" />}
-      </button>
+      <div className="flex items-center gap-2 md:hidden">
+        <button
+          type="button"
+          onClick={() => setCartOpen(true)}
+          aria-label={`Carrito ${count} productos`}
+          className="relative flex size-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-foreground"
+        >
+          <ShoppingBag className="size-5" />
+          {count > 0 && (
+            <span className="absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">
+              {count}
+            </span>
+          )}
+        </button>
+        <button
+          type="button"
+          aria-label={abierto ? "Cerrar menú" : "Abrir menú"}
+          aria-expanded={abierto}
+          aria-controls="navbar-movil"
+          onClick={() => setAbierto((v) => !v)}
+          className="flex size-9 items-center justify-center rounded-lg border border-white/10 bg-white/5 text-foreground transition-colors hover:bg-white/10"
+        >
+          {abierto ? <X className="size-5" /> : <Menu className="size-5" />}
+        </button>
+      </div>
 
       {/* Panel móvil */}
       {abierto && (

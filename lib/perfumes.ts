@@ -23,6 +23,8 @@ export type Perfume = {
   temporadas: Temporada[]
   clima: Clima[]
   decants: Decant[]
+  /** Stock total en ML Se descuenta al comprar. */
+  stockMl?: number
 }
 
 // Etiquetas legibles para los filtros
@@ -54,6 +56,7 @@ export const PERFUMES: Perfume[] = [
     imagen: "/decants/vulcan-feu.png",
     clima: ["calido"],
     temporadas: ["verano", "primavera"],
+    stockMl: 80,
     decants: [
       { ml: 5, sprays: 90, precio: 14990 },
       { ml: 10, sprays: 160, precio: 23391 },
@@ -74,6 +77,7 @@ export const PERFUMES: Perfume[] = [
     imagen: "/decants/asad-bourbon.png",
     clima: ["calido"],
     temporadas: ["invierno", "otono"],
+    stockMl: 65,
     decants: [
       { ml: 5, sprays: 90, precio: 16990 },
       { ml: 10, sprays: 160, precio: 25990 },
@@ -94,6 +98,7 @@ export const PERFUMES: Perfume[] = [
     imagen: "/decants/khamrah-qahwa.png",
     clima: ["frio"],
     temporadas: ["invierno", "otono"],
+    stockMl: 65,
     decants: [
       { ml: 5, sprays: 90, precio: 13990 },
       { ml: 10, sprays: 160, precio: 21990 },
@@ -114,6 +119,7 @@ export const PERFUMES: Perfume[] = [
     imagen: "/decants/maahir-legacy.png",
     clima: ["calido"],
     temporadas: ["primavera", "otono"],
+    stockMl: 70,
     decants: [
       { ml: 5, sprays: 90, precio: 11990 },
       { ml: 10, sprays: 160, precio: 18990 },
@@ -134,6 +140,7 @@ export const PERFUMES: Perfume[] = [
     imagen: "/decants/mandarin-sky.png",
     clima: ["frio"],
     temporadas: ["invierno", "otono", "primavera"],
+    stockMl: 55,
     decants: [
       { ml: 5, sprays: 90, precio: 15990 },
       { ml: 10, sprays: 160, precio: 24990 },
@@ -154,6 +161,7 @@ export const PERFUMES: Perfume[] = [
     imagen: "/decants/fakhar-gold.png",
     clima: ["frio", "calido"],
     temporadas: ["primavera", "verano", "otono"],
+    stockMl: 90,
     decants: [
       { ml: 5, sprays: 90, precio: 9990 },
       { ml: 10, sprays: 160, precio: 15990 },
@@ -174,6 +182,7 @@ export const PERFUMES: Perfume[] = [
     imagen: "/decants/armaf-odyssey-homme-white.png",
     clima: ["calido"],
     temporadas: ["primavera", "verano"],
+    stockMl: 50,
     decants: [
       { ml: 5, sprays: 90, precio: 10990 },
       { ml: 10, sprays: 160, precio: 17990 },
@@ -194,6 +203,7 @@ export const PERFUMES: Perfume[] = [
     imagen: "/decants/armaf-odyssey-homme.png",
     clima: ["frio"],
     temporadas: ["invierno", "otono"],
+    stockMl: 45,
     decants: [
       { ml: 5, sprays: 90, precio: 12990 },
       { ml: 10, sprays: 160, precio: 19990 },

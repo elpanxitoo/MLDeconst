@@ -5,17 +5,24 @@ import Image from "next/image"
 import { ChevronDown, Minus, Plus, ShieldCheck, ShoppingCart, Sparkles, Truck, X } from "lucide-react"
 import { PERFUMES, precioMostrar, type Perfume } from "@/lib/perfumes"
 import { PiramideNotas } from "@/components/piramide-notas"
+import { useCart } from "@/components/cart-context"
 
 export function PerfumeDetailModal() {
   const [perfume, setPerfume] = useState<Perfume | null>(null)
   const [decantIdx, setDecantIdx] = useState(0)
   const [cantidad, setCantidad] = useState(1)
-  const [piramideAbierta, setPiramideAbierta] = useState(false)
+  const [piramideAbierta, setPiramideAbierta] = useState(true)
+  const [stockMl, setStockMl] = useState(0)
   const overlayRef = useRef<HTMLDivElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
 
+  const { addToCart } = useCart()
   const decant = perfume?.decants[decantIdx]
   const total = decant ? decant.precio * cantidad : 0
+  const mlNecesarios = decant ? decant.ml * cantidad : 0
+  const sinStock = stockMl === 0
+  const stockInsuficiente = mlNecesarios > stockMl
+  const maxCantidad = decant && stockMl > 0 ? Math.max(1, Math.floor(stockMl / decant.ml)) : 1
 
   function cerrar() {
     setPerfume(null)
@@ -28,11 +35,45 @@ export function PerfumeDetailModal() {
     if (p) {
       setPerfume(p)
       setDecantIdx(0) // default 5 ml
-      // setDecantIdx(p.decants.length > 1 ? 1 : 0) // default 10ml si existe
       setCantidad(1)
-      setPiramideAbierta(false) // acordeón abierto por defecto en móvil
+      setPiramideAbierta(true) // acordeón abierto por defecto en móvil
+      const guardado = typeof window !== "undefined" ? localStorage.getItem(`ml-stock-${p.id}`) : null
+      const inicial = guardado !== null ? parseInt(guardado, 10) : (p.stockMl ?? 60)
+      const stock = isNaN(inicial as number) ? (p.stockMl ?? 60) : (inicial as number)
+      setStockMl(stock)
     }
   }
+
+  function comprar() {
+    if (!perfume || !decant || sinStock || stockInsuficiente) return
+    const nuevoStock = stockMl - mlNecesarios
+    setStockMl(nuevoStock)
+    localStorage.setItem(`ml-stock-${perfume.id}`, String(nuevoStock))
+    window.dispatchEvent(new CustomEvent("stock-actualizado", { detail: { id: perfume.id, stockMl: nuevoStock } }))
+    cerrar()
+  }
+
+  function anadirAlCarrito() {
+    if (!perfume || !decant || sinStock || stockInsuficiente) return
+    addToCart({
+      perfumeId: perfume.id,
+      nombre: perfume.nombre,
+      casa: perfume.casa,
+      imagen: perfume.imagen,
+      ml: decant.ml,
+      precio: decant.precio,
+      sprays: decant.sprays,
+      cantidad,
+    })
+    cerrar()
+  }
+
+  // Ajustar cantidad si cambia decant y excede stock
+  useEffect(() => {
+    if (decant && stockMl > 0 && cantidad > maxCantidad) {
+      setCantidad(maxCantidad)
+    }
+  }, [decantIdx, stockMl, maxCantidad, cantidad, decant])
 
   // Evento global
   useEffect(() => {
@@ -53,7 +94,6 @@ export function PerfumeDetailModal() {
       if (e.key === "Escape") cerrar()
     }
     document.addEventListener("keydown", onKey)
-    // focus
     setTimeout(() => panelRef.current?.focus(), 0)
     return () => {
       document.body.style.overflow = prev
@@ -63,8 +103,6 @@ export function PerfumeDetailModal() {
 
   if (!perfume || !decant) return null
 
-  // Género - comentado por ahora, puede reactivarse en el futuro
-  // const genero = perfume.clima.includes("frio") && perfume.clima.includes("calido") ? "Unisex" : perfume.clima.includes("frio") ? "Unisex" : "Unisex"
   const estilo = perfume.piramide.base.map((n) => n.nombre).slice(0, 2).join(" / ") || "Amaderado especiado"
 
   return (
@@ -107,13 +145,12 @@ export function PerfumeDetailModal() {
               className="relative z-10 h-full w-full object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.9)]"
             />
           </div>
-          {/* Mini pirámide visible solo en modal para dar valor */}
           <div className="mt-3 hidden rounded-xl border border-white/5 bg-white/[0.03] p-3 md:block">
             <PiramideNotas piramide={perfume.piramide} />
           </div>
         </div>
 
-        {/* Detalle - abajo en móvil, der en desktop */}
+        {/* Detalle */}
         <div className="flex flex-1 flex-col overflow-y-auto p-5 md:p-6">
           <p className="text-[11px] tracking-[0.18em] text-muted-foreground uppercase">
             {perfume.casa}
@@ -125,10 +162,8 @@ export function PerfumeDetailModal() {
             {perfume.nombre} Decant {decant.ml} ML
           </h2>
 
-          {/* Chips */}
           <div className="mt-3 flex flex-wrap gap-1.5">
             <span className="rounded-full bg-white/10 px-2.5 py-1 text-xs text-muted-foreground">Eau de Parfum</span>
-            {/* Género comentado - reactivar si se necesita: <span className="rounded-full bg-white/10 px-2.5 py-1 text-xs text-muted-foreground">{genero}</span> */}
             <span className="rounded-full bg-white/10 px-2.5 py-1 text-xs text-muted-foreground">{decant.ml} ml</span>
             {perfume.temporadas.slice(0, 1).map((t) => (
               <span key={t} className="rounded-full bg-white/10 px-2.5 py-1 text-xs capitalize text-muted-foreground">
@@ -141,7 +176,6 @@ export function PerfumeDetailModal() {
             Parecido a <span className="font-medium text-foreground">{perfume.casa} {perfume.nombre}</span>
           </p>
 
-          {/* Precio */}
           <div className="mt-3 flex items-baseline gap-2">
             <span className="text-2xl font-bold text-foreground">{precioMostrar(decant.precio)}</span>
             <span className="text-xs tracking-wide text-muted-foreground uppercase">
@@ -149,7 +183,6 @@ export function PerfumeDetailModal() {
             </span>
           </div>
 
-          {/* Selector de decant */}
           <div className="mt-3 flex gap-2">
             {perfume.decants.map((d, i) => (
               <button
@@ -170,7 +203,6 @@ export function PerfumeDetailModal() {
             {perfume.descripcion}
           </p>
 
-          {/* Especificaciones */}
           <ul className="mt-4 flex flex-col gap-1.5 text-sm">
             <li className="flex items-center gap-2 text-muted-foreground">
               <Sparkles className="size-3.5 text-primary" /> <span><span className="text-foreground">Marca:</span> {perfume.casa}</span>
@@ -187,7 +219,7 @@ export function PerfumeDetailModal() {
           </ul>
 
           {/* Pirámide en móvil - acordeón visible y abierto por defecto */}
-          <div className="mt-4 overflow-collapsed rounded-xl border border-white/5 bg-white/[0.03] md:hidden">
+          <div className="mt-4 overflow-hidden rounded-xl border border-white/5 bg-white/[0.03] md:hidden">
             <button
               type="button"
               onClick={() => setPiramideAbierta((v) => !v)}
@@ -210,13 +242,14 @@ export function PerfumeDetailModal() {
             )}
           </div>
 
-          {/* Cantidad */}
-          {/* <div className="mt-5 flex items-center gap-3 border-t border-white/10 pt-4">
+          {/* Cantidad y stock en ML */}
+          <div className="mt-5 flex items-center gap-3 border-t border-white/10 pt-4">
             <div className="flex items-center gap-1 rounded-full border border-white/15 bg-white/[0.04] px-1 py-1">
               <button
                 type="button"
                 onClick={() => setCantidad((c) => Math.max(1, c - 1))}
-                className="flex size-7 items-center justify-center rounded-full hover:bg-white/10"
+                disabled={cantidad <= 1}
+                className="flex size-7 items-center justify-center rounded-full hover:bg-white/10 disabled:opacity-30"
                 aria-label="Disminuir cantidad"
               >
                 <Minus className="size-3.5" />
@@ -224,39 +257,45 @@ export function PerfumeDetailModal() {
               <span className="w-6 text-center text-sm font-medium">{cantidad}</span>
               <button
                 type="button"
-                onClick={() => setCantidad((c) => c + 1)}
-                className="flex size-7 items-center justify-center rounded-full hover:bg-white/10"
+                onClick={() => setCantidad((c) => Math.min(maxCantidad, c + 1))}
+                disabled={cantidad >= maxCantidad || stockInsuficiente}
+                className="flex size-7 items-center justify-center rounded-full hover:bg-white/10 disabled:opacity-30"
                 aria-label="Aumentar cantidad"
               >
                 <Plus className="size-3.5" />
               </button>
             </div>
-            <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
-              <span className="size-1.5 rounded-full bg-emerald-500" /> 42 disponibles
+            <span className={`flex items-center gap-1.5 text-xs ${sinStock ? "text-red-400" : stockMl < 15 ? "text-amber-400" : "text-muted-foreground"}`}>
+              <span className={`size-1.5 rounded-full ${sinStock ? "bg-red-500" : stockMl < 15 ? "bg-amber-500" : "bg-emerald-500"}`} /> {stockMl} ml disponibles
             </span>
-          </div> */}
+            {stockInsuficiente && !sinStock && (
+              <span className="text-xs text-amber-400">Stock insuficiente</span>
+            )}
+          </div>
 
           {/* Acciones */}
           <div className="mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2">
-            {/* <button
-              type="button"
-              onClick={() => {
-                // placeholder carrito
-                cerrar()
-              }}
-              className="flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-white/10"
-            >
-              <ShoppingCart className="size-4" />
-              Añadir al carrito
-            </button> */}
             <button
               type="button"
-              onClick={() => cerrar()}
-              className="rounded-xl bg-gold-gradient px-4 py-3 text-sm font-bold text-primary-foreground shadow-[0_4px_20px_rgba(212,175,55,0.3)] transition-opacity hover:opacity-90"
+              onClick={anadirAlCarrito}
+              disabled={sinStock || stockInsuficiente}
+              className="flex items-center justify-center gap-2 rounded-xl border border-white/15 bg-white/[0.04] px-4 py-3 text-sm font-medium text-foreground transition-colors hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none"
             >
-              Comprar ahora · {precioMostrar(total)}
+              <ShoppingCart className="size-4" />
+              {sinStock ? "Sin stock" : "Añadir al carrito"}
+            </button>
+            <button
+              type="button"
+              onClick={comprar}
+              disabled={sinStock || stockInsuficiente}
+              className="rounded-xl bg-gold-gradient px-4 py-3 text-sm font-bold text-primary-foreground shadow-[0_4px_20px_rgba(212,175,55,0.3)] transition-opacity hover:opacity-90 disabled:opacity-30 disabled:pointer-events-none"
+            >
+              {sinStock ? "Agotado" : `Comprar ahora · ${precioMostrar(total)}`}
             </button>
           </div>
+          {stockInsuficiente && (
+            <p className="mt-2 text-xs text-amber-400">Solo quedan {stockMl} ml. Reduce la cantidad o elige 5 ml.</p>
+          )}
 
           <div className="mt-3 flex flex-wrap gap-3 text-xs text-muted-foreground">
             <span className="flex items-center gap-1.5">
@@ -267,7 +306,6 @@ export function PerfumeDetailModal() {
             </span>
           </div>
 
-          {/* Cómo comprar - ocupa el espacio vacío bajo los botones */}
           <div className="mt-4 rounded-xl border border-white/5 bg-white/[0.03] p-3">
             <h4 className="text-xs font-semibold tracking-wide text-foreground">¿Cómo comprar?</h4>
             <ol className="mt-2 flex flex-col gap-1.5 text-xs leading-relaxed text-muted-foreground">

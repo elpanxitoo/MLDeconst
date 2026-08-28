@@ -3,6 +3,8 @@ import type { Metadata, Viewport } from 'next'
 import { Montserrat, Playfair_Display } from 'next/font/google'
 import { ContactModal } from '@/components/contact-modal'
 import { PerfumeDetailModal } from '@/components/perfume-detail-modal'
+import { CartProvider } from '@/components/cart-context'
+import { CartDrawer } from '@/components/cart-drawer'
 import './globals.css'
 
 const display = Playfair_Display({
@@ -55,9 +57,12 @@ export default function RootLayout({
   return (
     <html lang="es" className={`bg-background ${display.variable} ${body.variable}`}>
       <body className="font-sans antialiased">
-        {children}
-        <ContactModal />
-        <PerfumeDetailModal />
+        <CartProvider>
+          {children}
+          <ContactModal />
+          <PerfumeDetailModal />
+          <CartDrawer />
+        </CartProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
