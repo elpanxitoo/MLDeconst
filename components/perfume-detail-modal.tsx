@@ -11,7 +11,7 @@ export function PerfumeDetailModal() {
   const [perfume, setPerfume] = useState<Perfume | null>(null)
   const [decantIdx, setDecantIdx] = useState(0)
   const [cantidad, setCantidad] = useState(1)
-  const [piramideAbierta, setPiramideAbierta] = useState(true)
+  const [piramideAbierta, setPiramideAbierta] = useState(false)
   const [stockMl, setStockMl] = useState(0)
   const [cargandoStock, setCargandoStock] = useState(false)
   const overlayRef = useRef<HTMLDivElement>(null)
@@ -245,7 +245,7 @@ export function PerfumeDetailModal() {
           <div className="mt-4 overflow-collapse rounded-xl border border-white/5 bg-white/[0.03] md:hidden">
             <button
               type="button"
-              onClick={() => setPiramideAbierta((v) => !v)}
+              onClick={() => setPiramideAbierta((f) => !f)}
               aria-expanded={piramideAbierta}
               aria-controls="piramide-contenido-movil"
               className="flex w-full items-center justify-between px-3 py-3 text-left"
