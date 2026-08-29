@@ -32,16 +32,27 @@ export function CartDrawer() {
 
   function comprarTodo() {
     if (items.length === 0) return
+    // Armar mensaje de WhatsApp con todos los perfumes
+    const telefono = "56986037614"
+    const lineas = items.map((it, idx) => `${idx + 1}. ${it.nombre} (${it.casa}) - ${it.ml} ML x${it.cantidad} - ${precioMostrar(it.precio)} c/u = ${precioMostrar(it.precio * it.cantidad)}`)
+    const totalMl = items.reduce((a, b) => a + b.ml * b.cantidad, 0)
+    const mensaje = [
+      "Hola! Quiero comprar en ML Decants:",
+      ...lineas,
+      `Total: ${precioMostrar(total)}`,
+      `ML totales: ${totalMl} ml`,
+    ].join("\n")
+    const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`
     // Descontar stock en ML por cada item
     for (const it of items) {
       const key = `ml-stock-${it.perfumeId}`
       const guardado = localStorage.getItem(key)
-      // buscar stock inicial desde perfumes.ts fallback 60 si no existe
       const stockActual = guardado !== null ? parseInt(guardado, 10) : 60
       const nuevo = Math.max(0, stockActual - it.ml * it.cantidad)
       localStorage.setItem(key, String(nuevo))
       window.dispatchEvent(new CustomEvent("stock-actualizado", { detail: { id: it.perfumeId, stockMl: nuevo } }))
     }
+    window.open(url, "_blank")
     clearCart()
     setOpen(false)
   }

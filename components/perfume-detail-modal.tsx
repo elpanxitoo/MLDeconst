@@ -50,6 +50,16 @@ export function PerfumeDetailModal() {
     setStockMl(nuevoStock)
     localStorage.setItem(`ml-stock-${perfume.id}`, String(nuevoStock))
     window.dispatchEvent(new CustomEvent("stock-actualizado", { detail: { id: perfume.id, stockMl: nuevoStock } }))
+    // Redirigir a WhatsApp con detalle del perfume
+    const telefono = "56986037614"
+    const mensaje = [
+      "Hola! Quiero comprar en ML Decants:",
+      `- ${perfume.nombre} (${perfume.casa}) - ${decant.ml} ML x${cantidad} (~${decant.sprays} atomizaciones) - ${precioMostrar(decant.precio)} c/u`,
+      `Total: ${precioMostrar(total)}`,
+      `ML totales: ${mlNecesarios} ml`,
+    ].join("\n")
+    const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`
+    window.open(url, "_blank")
     cerrar()
   }
 
