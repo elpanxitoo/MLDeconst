@@ -121,7 +121,7 @@ export function ContactModal() {
             </span>
             <span className="flex flex-col">
               <span className="text-sm font-medium text-foreground">Correo</span>
-              <span className="text-sm text-muted-foreground">contacto@essenceperfumes.cl</span>
+              <span className="text-sm text-muted-foreground">|contacto.mldecants@gmail.com</span>
             </span>
           </a>
         </div>

@@ -242,7 +242,7 @@ export function PerfumeDetailModal() {
             </li>
           </ul>
 
-          <div className="mt-4 overflow-hidden rounded-xl border border-white/5 bg-white/[0.03] md:hidden">
+          <div className="mt-4 overflow-collapse rounded-xl border border-white/5 bg-white/[0.03] md:hidden">
             <button
               type="button"
               onClick={() => setPiramideAbierta((v) => !v)}
