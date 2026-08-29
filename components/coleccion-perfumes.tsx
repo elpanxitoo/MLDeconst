@@ -1,14 +1,15 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Search, X } from "lucide-react"
 import {
-  clima,
-  PERFUMES,
+  CLIMA as clima,
   TEMPORADAS,
   type Clima,
   type Temporada,
-} from "@/lib/perfumes"
+  type Perfume,
+  getPerfumes,
+} from "@/lib/perfumes-db"
 import { nombresDeNotas } from "@/lib/notas"
 import { PerfumeCard } from "@/components/perfume-card"
 import { cn } from "@/lib/utils"
@@ -43,6 +44,17 @@ export function ColeccionPerfumes() {
   const [temporadas, setTemporadas] = useState<Temporada[]>([])
   const [momentos, setMomentos] = useState<Clima[]>([])
   const [busqueda, setBusqueda] = useState("")
+  const [perfumes, setPerfumes] = useState<Perfume[]>([])
+  const [cargando, setCargando] = useState(true)
+
+  useEffect(() => {
+    getPerfumes()
+      .then((data) => {
+        setPerfumes(data)
+        setCargando(false)
+      })
+      .catch(() => setCargando(false))
+  }, [])
 
   function toggle<T>(lista: T[], valor: T, set: (v: T[]) => void) {
     set(lista.includes(valor) ? lista.filter((x) => x !== valor) : [...lista, valor])
@@ -50,7 +62,7 @@ export function ColeccionPerfumes() {
 
   const filtrados = useMemo(() => {
     const q = busqueda.trim().toLowerCase()
-    return PERFUMES.filter((p) => {
+    return perfumes.filter((p) => {
       const okTemporada =
         temporadas.length === 0 || temporadas.some((t) => p.temporadas.includes(t))
       const okMomento =
@@ -62,7 +74,7 @@ export function ColeccionPerfumes() {
         nombresDeNotas(p.piramide).some((n) => n.toLowerCase().includes(q))
       return okTemporada && okMomento && okBusqueda
     })
-  }, [temporadas, momentos, busqueda])
+  }, [temporadas, momentos, busqueda, perfumes])
 
   const hayFiltros = temporadas.length > 0 || momentos.length > 0 || busqueda !== ""
 
@@ -70,6 +82,19 @@ export function ColeccionPerfumes() {
     setTemporadas([])
     setMomentos([])
     setBusqueda("")
+  }
+
+  if (cargando) {
+    return (
+      <section id="Fragancias" className="px-[4%] py-20">
+        <div className="mx-auto max-w-7xl text-center">
+          <div className="flex justify-center items-center gap-4">
+            <div className="size-8 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
+            <span className="text-muted-foreground">Cargando fragancias...</span>
+          </div>
+        </div>
+      </section>
+    )
   }
 
   return (

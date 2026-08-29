@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Image from "next/image"
-import { precioMostrar, type Perfume } from "@/lib/perfumes"
+import { precioMostrar, type Perfume } from "@/lib/perfumes-db"
 import { PiramideNotas } from "@/components/piramide-notas"
 
 export type PedestalVariant = "podio" | "losa"
@@ -46,27 +46,20 @@ export function PerfumeCard({
   const agotado = stockMl <= 0
 
   useEffect(() => {
-    const guardado = localStorage.getItem(`ml-stock-${perfume.id}`)
-    if (guardado !== null) {
-      const v = parseInt(guardado, 10)
-      if (!isNaN(v)) setStockMl(v)
-    }
+    // Cargar stock compartido desde API
+    fetch(`/api/stock?id=${encodeURIComponent(perfume.id)}`, { cache: "no-store" })
+      .then((r) => r.json())
+      .then((d) => {
+        if (typeof d.stockMl === "number") setStockMl(d.stockMl)
+      })
+      .catch(() => {})
     function onStock(e: Event) {
       const detail = (e as CustomEvent<{ id: string; stockMl: number }>).detail
       if (detail?.id === perfume.id) setStockMl(detail.stockMl)
     }
     window.addEventListener("stock-actualizado", onStock as EventListener)
-    // también escucha cambios de storage entre pestañas
-    function onStorage(ev: StorageEvent) {
-      if (ev.key === `ml-stock-${perfume.id}` && ev.newValue !== null) {
-        const v = parseInt(ev.newValue, 10)
-        if (!isNaN(v)) setStockMl(v)
-      }
-    }
-    window.addEventListener("storage", onStorage)
     return () => {
       window.removeEventListener("stock-actualizado", onStock as EventListener)
-      window.removeEventListener("storage", onStorage)
     }
   }, [perfume.id, perfume.stockMl])
 

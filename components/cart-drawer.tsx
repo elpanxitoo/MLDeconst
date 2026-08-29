@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react"
 import { useCart } from "@/components/cart-context"
-import { precioMostrar } from "@/lib/perfumes"
+import { precioMostrar } from "@/lib/perfumes-db"
 import { useEffect, useRef } from "react"
 
 export function CartDrawer() {
@@ -30,31 +30,48 @@ export function CartDrawer() {
     }
   }, [open])
 
-  function comprarTodo() {
+  async function comprarTodo() {
     if (items.length === 0) return
-    // Armar mensaje de WhatsApp con todos los perfumes
-    const telefono = "56986037614"
-    const lineas = items.map((it, idx) => `${idx + 1}. ${it.nombre} (${it.casa}) - ${it.ml} ML x${it.cantidad} - ${precioMostrar(it.precio)} c/u = ${precioMostrar(it.precio * it.cantidad)}`)
-    const totalMl = items.reduce((a, b) => a + b.ml * b.cantidad, 0)
-    const mensaje = [
-      "Hola! Quiero comprar en ML Decants:",
-      ...lineas,
-      `Total: ${precioMostrar(total)}`,
-      `ML totales: ${totalMl} ml`,
-    ].join("\n")
-    const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`
-    // Descontar stock en ML por cada item
-    for (const it of items) {
-      const key = `ml-stock-${it.perfumeId}`
-      const guardado = localStorage.getItem(key)
-      const stockActual = guardado !== null ? parseInt(guardado, 10) : 60
-      const nuevo = Math.max(0, stockActual - it.ml * it.cantidad)
-      localStorage.setItem(key, String(nuevo))
-      window.dispatchEvent(new CustomEvent("stock-actualizado", { detail: { id: it.perfumeId, stockMl: nuevo } }))
+    const itemsPayload = items.map((it) => ({ id: it.perfumeId, ml: it.ml * it.cantidad }))
+    try {
+      const res = await fetch("/api/stock", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items: itemsPayload }),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        alert(data.error || "Stock insuficiente para algún producto")
+        // Actualizar stocks visibles
+        if (data.stocks) {
+          for (const [id, stockMl] of Object.entries(data.stocks as Record<string, number>)) {
+            window.dispatchEvent(new CustomEvent("stock-actualizado", { detail: { id, stockMl } }))
+          }
+        } else if (data.id) {
+          window.dispatchEvent(new CustomEvent("stock-actualizado", { detail: { id: data.id, stockMl: data.stockMl } }))
+        }
+        return
+      }
+      // Actualizar UI con stocks nuevos
+      const stocks = (data.stocks as Record<string, number>) || {}
+      for (const [id, stockMl] of Object.entries(stocks)) {
+        window.dispatchEvent(new CustomEvent("stock-actualizado", { detail: { id, stockMl } }))
+      }
+      const telefono = "56986037614"
+      const lineas = items.map((it, idx) => `${idx + 1}. ${it.nombre} (${it.casa}) - ${it.ml} ML x${it.cantidad} - ${precioMostrar(it.precio)} c/u = ${precioMostrar(it.precio * it.cantidad)}`)
+      const totalMl = items.reduce((a, b) => a + b.ml * b.cantidad, 0)
+      const mensaje = [
+        "Hola! Quiero comprar en ML Decants:",
+        ...lineas,
+        `Total: ${precioMostrar(total)}`,
+        `ML totales: ${totalMl} ml`,
+      ].join("\n")
+      window.open(`https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`, "_blank")
+      clearCart()
+      setOpen(false)
+    } catch (e) {
+      alert("Error al procesar la compra: " + (e as Error).message)
     }
-    window.open(url, "_blank")
-    clearCart()
-    setOpen(false)
   }
 
   if (!open) return null
