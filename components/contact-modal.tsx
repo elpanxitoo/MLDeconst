@@ -121,7 +121,7 @@ export function ContactModal() {
             </span>
             <span className="flex flex-col">
               <span className="text-sm font-medium text-foreground">Correo</span>
-              <span className="text-sm text-muted-foreground">|contacto.mldecants@gmail.com</span>
+              <span className="text-sm text-muted-foreground">contacto.mldecants@gmail.com</span>
             </span>
           </a>
         </div>
@@ -143,7 +143,7 @@ export function ContactModal() {
               <Camera className="size-3.5" />
             </a>
             <a
-              href="https://wa.me/56912345678"
+              href="https://wa.me/56986037614"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"
