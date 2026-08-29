@@ -13,7 +13,7 @@ export function SiteFooter() {
             ML Decants
           </h3>
           <p className="mt-4 max-w-sm text-sm leading-relaxed font-light text-muted-foreground">
-            Alta perfumería y fragancias de autor en formatos exclusivos de decants de 3ml, 5ml y
+            Alta perfumería y fragancias de autor en formatos exclusivos de decants de 5ml y
             10ml. 100% auténticas.
           </p>
           <div className="mt-5 flex gap-5 text-xs tracking-widest text-muted-foreground uppercase">
@@ -35,7 +35,7 @@ export function SiteFooter() {
           </ul>
         </div>
 
-        <div>
+        {/* <div>
           <h4 className="text-xs tracking-[0.2em] text-gold-light uppercase">
             Atención al Cliente
           </h4>
@@ -61,7 +61,7 @@ export function SiteFooter() {
               </button>
             </li>
           </ul>
-        </div>
+        </div> */}
       </div>
 
       <div className="border-t border-white/5 py-6 text-center text-xs text-muted-foreground">
