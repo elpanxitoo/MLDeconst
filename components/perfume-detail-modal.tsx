@@ -11,7 +11,7 @@ export function PerfumeDetailModal() {
   const [perfume, setPerfume] = useState<Perfume | null>(null)
   const [decantIdx, setDecantIdx] = useState(0)
   const [cantidad, setCantidad] = useState(1)
-  const [piramideAbierta, setPiramideAbierta] = useState(true)
+  const [piramideAbierta, setPiramideAbierta] = useState(false)
   const [stockMl, setStockMl] = useState(0)
   const [cargandoStock, setCargandoStock] = useState(false)
   const overlayRef = useRef<HTMLDivElement>(null)
