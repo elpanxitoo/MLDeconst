@@ -10,7 +10,7 @@ export function Hero() {
     <header className="relative flex min-h-screen items-center justify-between gap-8 px-[6%] pt-32 pb-16">
       {/* Imagen de fondo - Desktop */}
       <Image
-        src="/hero.jpg"
+        src="/hero-Mobil.png"
         alt=""
         fill
         priority
