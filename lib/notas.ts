@@ -82,8 +82,9 @@ export const NOTAS = {
   mahonial: { nombre: "mahonial", imagen: "/notas/mahonial.png" },
   akigalawood: { nombre: "akigalawood", imagen: "/notas/akigalawood.png" },
   ambrofix: { nombre: "ambrofix", imagen: "/notas/ambrofix.png" },
-  abrotano: { nombre: "abrótano", imagen: "/notas/abrotano.png" },
-  cipres: { nombre: "ciprés", imagen: "/notas/cipres.png" },
+  abrotano: { nombre: "abrótano", imagen: "/notas/abrotano.jpg" },
+  cipres: { nombre: "ciprés", imagen: "/notas/cipres.jpg" },
+  elemi: { nombre: "elemí", imagen: "/notas/elemi.jpg" },
 
 } satisfies Record<string, Nota>
 
