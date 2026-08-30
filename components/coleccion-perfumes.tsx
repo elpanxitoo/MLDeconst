@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react"
+import Image from "next/image"
 import { Search, X } from "lucide-react"
 import {
   CLIMA as clima,
@@ -98,8 +99,16 @@ export function ColeccionPerfumes() {
   }
 
   return (
-    <section id="Fragancias" className="px-[4%] py-20">
-      <div className="mx-auto max-w-7xl">
+    <section id="Fragancias" className="relative px-[4%] py-20">
+      <Image
+        src="/hero-Mobil.png"
+        alt=""
+        fill
+        className="object-cover object-center"
+      />
+      <div className="absolute inset-0 bg-black/70" />
+
+      <div className="relative z-10 mx-auto max-w-7xl">
         {/* Encabezado */}
         <div className="mb-10 text-center">
           <span className="inline-flex items-center gap-2 rounded-full border border-border bg-primary/5 px-4 py-1.5 text-xs tracking-[0.2em] text-gold-light uppercase">
