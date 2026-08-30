@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import Image from "next/image"
 import { Menu, ShoppingBag, X } from "lucide-react"
 import { useCart } from "@/components/cart-context"
 
@@ -76,9 +77,12 @@ export function Navbar() {
     <nav
       className={`fixed top-0 z-50 flex w-full items-center justify-between border-b border-primary/15 bg-black/20 px-[6%] py-6 backdrop-blur-md transition-transform duration-300 will-change-transform ${visible ? "translate-y-0" : "-translate-y-full"}`}
     >
-      <span className="font-serif text-xl font-bold tracking-[2px] text-gold-gradient uppercase md:text-2xl">
-        ML Decants
-      </span>
+      <a href="/" className="flex items-center gap-2">
+        <Image src="/logo.jpg" alt="ML Decants" width={45} height={45} className="rounded-lg" />
+        <span className="font-serif text-xl font-bold tracking-[2px] text-gold-gradient uppercase md:text-2xl">
+          ML Decants
+        </span>
+      </a>
 
       {/* Desktop */}
       <ul className="hidden items-center gap-10 md:flex">
