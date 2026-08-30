@@ -1,4 +1,7 @@
+"use client"
+
 import Image from "next/image"
+import { useState } from "react"
 import { NIVELES_PIRAMIDE, type Piramide } from "@/lib/notas"
 
 /**
@@ -6,6 +9,33 @@ import { NIVELES_PIRAMIDE, type Piramide } from "@/lib/notas"
  * Súbelo (h-14 w-14, h-16 w-16) si quieres imágenes más grandes.
  */
 const TAMANO_MINIATURA = "h-12 w-12"
+
+function NotaThumb({ nota }: { nota: { nombre: string; imagen: string } }) {
+  const esPlaceholder = !nota.imagen || nota.imagen === "/placeholder.svg"
+  const [error, setError] = useState(false)
+  const mostrarFallback = esPlaceholder || error
+
+  return (
+    <div
+      className={`relative ${TAMANO_MINIATURA} overflow-hidden rounded-md border border-border ${mostrarFallback ? "bg-primary/10" : "bg-background"} flex items-center justify-center`}
+    >
+      {!mostrarFallback ? (
+        <Image
+          src={nota.imagen}
+          alt={nota.nombre}
+          fill
+          sizes="64px"
+          className="object-cover"
+          onError={() => setError(true)}
+        />
+      ) : (
+        <span className="text-[13px] font-bold uppercase tracking-wide text-primary">
+          {nota.nombre.slice(0, 2)}
+        </span>
+      )}
+    </div>
+  )
+}
 
 export function PiramideNotas({ piramide }: { piramide: Piramide }) {
   return (
@@ -22,17 +52,7 @@ export function PiramideNotas({ piramide }: { piramide: Piramide }) {
             <ul className="flex flex-wrap items-start justify-center gap-2">
               {notas.map((nota) => (
                 <li key={nota.nombre} className="flex w-16 flex-col items-center gap-1">
-                  <div
-                    className={`relative ${TAMANO_MINIATURA} overflow-hidden rounded-md border border-border bg-background`}
-                  >
-                    <Image
-                      src={nota.imagen || "/placeholder.svg"}
-                      alt={nota.nombre}
-                      fill
-                      sizes="64px"
-                      className="object-cover"
-                    />
-                  </div>
+                  <NotaThumb nota={nota} />
                   <span className="text-center text-[10px] leading-tight text-foreground/80">
                     {nota.nombre}
                   </span>

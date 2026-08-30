@@ -40,6 +40,7 @@ export const NOTAS = {
   amberwood: { nombre: "amberwood", imagen: "/notas/amberwood.png" },
   notasAcuaticas: { nombre: "notas acuáticas", imagen: "/notas/notas-acuaticas.png" },
   notasAmaderadas: { nombre: "notas amaderadas", imagen: "/notas/notas-amaderadas.png" },
+  maderaDeGaiac: { nombre: "madera de gaiac", imagen: "/notas/madera-de-gaiac.png" },
   azahar: { nombre: "azahar", imagen: "/notas/azahar.png" },
   bayaEnebro: { nombre: "baya de enebro", imagen: "/notas/baya-enebro.png" },
   benjui: { nombre: "benjuí", imagen: "/notas/benjui.png" },
@@ -73,6 +74,14 @@ export const NOTAS = {
   vainillaBourbon: { nombre: "vainilla bourbon", imagen: "/notas/vainilla.png" },
   vetiver: { nombre: "vetiver", imagen: "/notas/vetiver.png" },
   violeta: { nombre: "violeta", imagen: "/notas/violeta.png" },
+  pitahaya: { nombre: "pitahaya", imagen: "/notas/pitahaya.png" },
+  conac: { nombre: "coñac", imagen: "/notas/coñac.png" },
+  tonka: { nombre: "tonka", imagen: "/notas/tonka.png" },
+  toffee: { nombre: "toffee", imagen: "/notas/toffee.png" },
+  gamuza: { nombre: "gamuza", imagen: "/notas/gamuza.png" },
+  mahonial: { nombre: "mahonial", imagen: "/notas/mahonial.png" },
+  akigalawood: { nombre: "akigalawood", imagen: "/notas/akigalawood.png" },
+  ambrofix: { nombre: "ambrofix", imagen: "/notas/ambrofix.png" },
 } satisfies Record<string, Nota>
 
 // Pirámide olfativa: salida (lo primero que se siente), corazón y base (lo que queda).
