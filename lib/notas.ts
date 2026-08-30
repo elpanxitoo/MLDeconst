@@ -82,6 +82,9 @@ export const NOTAS = {
   mahonial: { nombre: "mahonial", imagen: "/notas/mahonial.png" },
   akigalawood: { nombre: "akigalawood", imagen: "/notas/akigalawood.png" },
   ambrofix: { nombre: "ambrofix", imagen: "/notas/ambrofix.png" },
+  abrotano: { nombre: "abrótano", imagen: "/notas/abrotano.png" },
+  cipres: { nombre: "ciprés", imagen: "/notas/cipres.png" },
+
 } satisfies Record<string, Nota>
 
 // Pirámide olfativa: salida (lo primero que se siente), corazón y base (lo que queda).
