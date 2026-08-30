@@ -8,8 +8,17 @@ export function Hero() {
   }
   return (
     <header className="relative flex min-h-screen items-center justify-between gap-8 px-[6%] pt-32 pb-16">
+      {/* Imagen de fondo */}
+      <Image
+        src="/hero.png"
+        alt=""
+        fill
+        priority
+        className="object-cover object-center"
+      />
+
       {/* Contenido */}
-      <div className="max-w-xl">
+      <div className="relative z-10 max-w-xl">
         <span className="inline-flex items-center gap-2 rounded-full border border-border bg-primary/5 px-3.5 py-1.5 text-xs tracking-[2px] text-gold-light uppercase">
           ✦ Fracciones de Alta Perfumería
         </span>
@@ -55,8 +64,8 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Visual lateral: composición de frascos */}
-      <div className="relative hidden h-[480px] w-[560px] lg:block">
+      {/* Visual lateral: composición de frascos
+      <div className="relative z-10 hidden h-[480px] w-[560px] lg:block">
         <Image
           src="/decants/perfumes.png"
           alt="Decants de perfume ML Decants"
@@ -64,12 +73,12 @@ export function Hero() {
           priority
           className="object-contain drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)]"
         />
-      </div>
+      </div> */}
 
       {/* Divisor dorado inferior */}
       <div
         aria-hidden
-        className="absolute bottom-0 left-0 h-px w-full bg-[linear-gradient(90deg,transparent_0%,rgba(212,175,55,0.6)_50%,transparent_100%)] shadow-[0_0_15px_rgba(212,175,55,0.4)]"
+        className="absolute bottom-0 left-0 z-10 h-px w-full bg-[linear-gradient(90deg,transparent_0%,rgba(212,175,55,0.6)_50%,transparent_100%)] shadow-[0_0_15px_rgba(212,175,55,0.4)]"
       />
     </header>
   )
