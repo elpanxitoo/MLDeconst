@@ -8,14 +8,23 @@ export function Hero() {
   }
   return (
     <header className="relative flex min-h-screen items-center justify-between gap-8 px-[6%] pt-32 pb-16">
-      {/* Imagen de fondo */}
+      {/* Imagen de fondo - Desktop */}
       <Image
-        src="/hero.png"
+        src="/hero.jpg"
         alt=""
         fill
         priority
-        className="object-cover object-center"
+        className="hidden object-cover object-center md:block"
       />
+      {/* Imagen de fondo - Mobile */}
+      <Image
+        src="/hero-Mobil.png"
+        alt=""
+        fill
+        priority
+        className="block object-cover object-center md:hidden"
+      />
+      <div className="absolute inset-0 bg-black/30 md:bg-black/0" />
 
       {/* Contenido */}
       <div className="relative z-10 max-w-xl">
