@@ -39,7 +39,7 @@ export function PerfumeDetailModal() {
         setPerfume(p)
         setDecantIdx(0)
         setCantidad(1)
-        setPiramideAbierta(true)
+        setPiramideAbierta(false)
         // Stock ya viene en p.stockMl
         setStockMl(p.stockMl)
       }
