@@ -89,6 +89,11 @@ export const NOTAS = {
   anisesEstrellado: { nombre: "anís estrellado", imagen: "/notas/anises-estrellado.jpg" },
   ciruela: { nombre: "ciruela", imagen: "/notas/ciruela.jpg" },
   trozosDeMaderaADeriva: { nombre: "trozos de madera a la deriva", imagen: "/notas/trozos-de-madera-a-la-deriva.jpg" },
+  lecheCoco: { nombre: "leche de coco", imagen: "/notas/leche-de-coco.jpg" },
+  canaAzucar: { nombre: "caña de azúcar", imagen: "/notas/cana-de-azucar.jpg" },
+  hibisco: { nombre: "hibisco", imagen: "/notas/hibisco.jpg" },
+  gardenia: { nombre: "gardenia", imagen: "/notas/gardenia.jpg" },
+
 
 } satisfies Record<string, Nota>
 
