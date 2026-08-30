@@ -85,6 +85,10 @@ export const NOTAS = {
   abrotano: { nombre: "abrótano", imagen: "/notas/abrotano.jpg" },
   cipres: { nombre: "ciprés", imagen: "/notas/cipres.jpg" },
   elemi: { nombre: "elemí", imagen: "/notas/elemi.jpg" },
+  limonItaliano: { nombre: "limón italiano", imagen: "/notas/limon-italiano.jpg" },
+  anisesEstrellado: { nombre: "anís estrellado", imagen: "/notas/anises-estrellado.jpg" },
+  ciruela: { nombre: "ciruela", imagen: "/notas/ciruela.jpg" },
+  trozosDeMaderaADeriva: { nombre: "trozos de madera a la deriva", imagen: "/notas/trozos-de-madera-a-la-deriva.jpg" },
 
 } satisfies Record<string, Nota>
 
