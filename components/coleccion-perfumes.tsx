@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react"
-import Image from "next/image"
 import { Search, X } from "lucide-react"
 import {
   CLIMA as clima,
@@ -100,11 +99,9 @@ export function ColeccionPerfumes() {
 
   return (
     <section id="Fragancias" className="relative px-[4%] py-20">
-      <Image
-        src="/hero-Mobil.png"
-        alt=""
-        fill
-        className="object-cover object-center"
+      <div
+        className="absolute inset-0 bg-repeat bg-center"
+        style={{ backgroundImage: "url(/hero-Mobil.png)", backgroundSize: "400px auto" }}
       />
       <div className="absolute inset-0 bg-black/70" />
 
