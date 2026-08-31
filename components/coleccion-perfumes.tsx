@@ -99,16 +99,7 @@ export function ColeccionPerfumes() {
 
   return (
     <section id="Fragancias" className="relative px-[4%] py-20">
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage: "url(/background-fragancias.png)",
-          backgroundSize: "100%",
-          backgroundPosition: "center top",
-          backgroundAttachment: "scroll",
-        }}
-      />
-      <div className="absolute inset-0 bg-black/70" />
+      <div className="bg-fragancias" />
 
       <div className="relative z-10 mx-auto max-w-7xl">
         {/* Encabezado */}

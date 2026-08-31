@@ -75,12 +75,14 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
 
 @layer utilities {
+
   /* Texto con degradado dorado, reutilizable */
   .text-gold-gradient {
     background: var(--gold-gradient);
@@ -89,13 +91,30 @@
     -webkit-text-fill-color: transparent;
     color: transparent;
   }
+
   .bg-gold-gradient {
     background: var(--gold-gradient);
   }
 }
 
+.bg-fragancias {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: #030507;
+  background-image: url('/background-fragancias.png');
+  background-size: 100%;
+}
+
+.bg-fragancias::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(3, 5, 7, 0.18);
+}
+
 @media (max-width: 768px) {
-  #Fragancias > div:first-child {
+  .bg-fragancias {
     background-position: center center;
   }
 }
