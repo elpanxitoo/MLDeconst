@@ -23,7 +23,7 @@ const body = Montserrat({
 export const metadata: Metadata = {
   title: 'ML Decants | Alta Perfumería en Formato Exclusivo',
   description:
-    'Catálogo de fragancias de autor en decants de 3ml, 5ml y 10ml. Filtra por temporada (invierno, verano) y momento (día, noche).',
+    'Catálogo de fragancias de autor en decants de 5ml y 10ml. Filtra por temporada (invierno, verano) y momento (día, noche).',
   generator: 'v0.app',
   icons: {
     icon: [
