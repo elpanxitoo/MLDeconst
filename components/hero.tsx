@@ -57,15 +57,15 @@ export function Hero() {
           </button>
         </div>
 
-        <div className="mt-14 flex gap-10 border-t border-white/10 pt-8">
+        <div className="mt-14 flex gap-10 border-t border-white/10 pt-8" style={{ fontFamily: "var(--font-merriweather)" }}>
           <div>
-            <p className="font-serif text-2xl text-gold-light">100%</p>
+            <p className="text-2xl font-bold text-gold-light">100%</p>
             <p className="mt-1 text-xs tracking-[1px] text-muted-foreground uppercase">
               Autenticidad Garantizada
             </p>
           </div>
           <div>
-            <p className="font-serif text-2xl text-gold-light">24/48h</p>
+            <p className="text-2xl font-bold text-gold-light">24/48h</p>
             <p className="mt-1 text-xs tracking-[1px] text-muted-foreground uppercase">
               Envíos Rápidos
             </p>

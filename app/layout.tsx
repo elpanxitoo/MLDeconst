@@ -1,6 +1,6 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
-import { Montserrat, Playfair_Display } from 'next/font/google'
+import { Montserrat, Playfair_Display, Merriweather } from 'next/font/google'
 import { ContactModal } from '@/components/contact-modal'
 import { PerfumeDetailModal } from '@/components/perfume-detail-modal'
 import { CartProvider } from '@/components/cart-context'
@@ -18,6 +18,12 @@ const body = Montserrat({
   subsets: ['latin'],
   weight: ['300', '400', '600', '700'],
   variable: '--font-body',
+})
+
+const merriweather = Merriweather({
+  subsets: ['latin'],
+  weight: ['300', '400', '700'],
+  variable: '--font-merriweather',
 })
 
 export const metadata: Metadata = {
@@ -47,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es" className={`bg-background ${display.variable} ${body.variable}`}>
+    <html lang="es" className={`bg-background ${display.variable} ${body.variable} ${merriweather.variable}`}>
       <body className="font-sans antialiased">
         <CartProvider>
           {children}
