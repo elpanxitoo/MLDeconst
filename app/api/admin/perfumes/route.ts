@@ -17,10 +17,21 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const { data: perfumes, error } = await supabaseAdmin
+    // Intentar ordenar por 'orden', si la columna no existe, fallback a 'nombre'
+    let { data: perfumes, error } = await supabaseAdmin
       .from('perfume_con_stock')
       .select('*')
+      .order('orden', { ascending: true, nullsFirst: false })
       .order('nombre')
+
+    if (error && error.message?.includes('orden')) {
+      const fallback = await supabaseAdmin
+        .from('perfume_con_stock')
+        .select('*')
+        .order('nombre')
+      perfumes = fallback.data
+      error = fallback.error
+    }
 
     if (error) throw error
 
@@ -67,6 +78,7 @@ export async function GET(req: NextRequest) {
       descripcion: p.descripcion,
       imagen: p.imagen,
       stock_ml: p.stock_actual ?? p.stock_ml ?? 60,
+      orden: p.orden ?? 0,
       decants: p.decants ?? [],
       piramide_salida: notasMap[p.id]?.salida ?? [],
       piramide_corazon: notasMap[p.id]?.corazon ?? [],
@@ -89,7 +101,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json()
-    const { id, nombre, casa, descripcion, imagen, decants, piramide_salida, piramide_corazon, piramide_base, temporadas, clima, stock_ml } = body
+    const { id, nombre, casa, descripcion, imagen, decants, piramide_salida, piramide_corazon, piramide_base, temporadas, clima, stock_ml, orden } = body
 
     if (!id || !nombre) {
       return NextResponse.json({ error: 'Faltan campos obligatorios: id, nombre' }, { status: 400 })
@@ -105,6 +117,7 @@ export async function POST(req: NextRequest) {
         descripcion: descripcion ?? '',
         imagen: imagen ?? '/placeholder.svg',
         decants: decants ?? [],
+        orden: orden ?? 0,
       })
 
     if (perfError) throw perfError
@@ -160,7 +173,7 @@ export async function PUT(req: NextRequest) {
 
   try {
     const body = await req.json()
-    const { id, nombre, casa, descripcion, imagen, decants, piramide_salida, piramide_corazon, piramide_base, temporadas, clima, stock_ml } = body
+    const { id, nombre, casa, descripcion, imagen, decants, piramide_salida, piramide_corazon, piramide_base, temporadas, clima, stock_ml, orden } = body
 
     if (!id) {
       return NextResponse.json({ error: 'Falta el campo id' }, { status: 400 })
@@ -175,6 +188,7 @@ export async function PUT(req: NextRequest) {
         descripcion,
         imagen,
         decants,
+        orden,
       })
       .eq('id', id)
 

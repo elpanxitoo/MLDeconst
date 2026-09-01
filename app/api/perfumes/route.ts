@@ -32,14 +32,37 @@ export async function GET(req: NextRequest) {
 
   try {
     // 1. Traer perfumes con stock
-    let query = supabaseAdmin.from('perfume_con_stock').select('*')
-    if (id) query = query.eq('id', id)
+    let lista: any[]
 
-    const { data: perfumes, error } = id ? await query.single() : await query.order('nombre')
-    if (error) throw error
-    if (id && !perfumes) return NextResponse.json({ error: 'Perfume no encontrado' }, { status: 404 })
+    if (id) {
+      const { data: perfume, error } = await supabaseAdmin
+        .from('perfume_con_stock')
+        .select('*')
+        .eq('id', id)
+        .single()
+      if (error) throw error
+      if (!perfume) return NextResponse.json({ error: 'Perfume no encontrado' }, { status: 404 })
+      lista = [perfume]
+    } else {
+      // Intentar ordenar por 'orden', si la columna no existe, fallback a 'nombre'
+      let { data: perfumes, error } = await supabaseAdmin
+        .from('perfume_con_stock')
+        .select('*')
+        .order('orden', { ascending: true, nullsFirst: false })
+        .order('nombre')
 
-    const lista = id ? [perfumes] : (perfumes as any[])
+      if (error && error.message?.includes('orden')) {
+        const fallback = await supabaseAdmin
+          .from('perfume_con_stock')
+          .select('*')
+          .order('nombre')
+        perfumes = fallback.data
+        error = fallback.error
+      }
+      if (error) throw error
+
+      lista = (perfumes ?? []) as any[]
+    }
 
     // 2. Traer pirámide de notas desde perfume_notas
     const ids = lista.map((p: any) => p.id)

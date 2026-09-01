@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Lock, Save, RefreshCw, Plus, Trash2, X, Edit } from "lucide-react"
+import { Lock, Save, RefreshCw, Plus, Trash2, X, Edit, ChevronUp, ChevronDown } from "lucide-react"
 
 type PerfumeAdmin = {
   id: string
@@ -10,6 +10,7 @@ type PerfumeAdmin = {
   descripcion: string
   imagen: string
   stock_ml: number
+  orden: number
   decants: { ml: number; sprays: number; precio: number }[]
   piramide_salida: string[]
   piramide_corazon: string[]
@@ -25,6 +26,7 @@ const VACIO: PerfumeAdmin = {
   descripcion: "",
   imagen: "/placeholder.svg",
   stock_ml: 60,
+  orden: 0,
   decants: [{ ml: 5, sprays: 90, precio: 10000 }],
   piramide_salida: [],
   piramide_corazon: [],
@@ -130,7 +132,7 @@ export default function AdminPage() {
   }
 
   function abrirNuevo() {
-    setForm(VACIO)
+    setForm({ ...VACIO, orden: perfumes.length + 1 })
     setEditando(null)
     setFormAbierto(true)
   }
@@ -193,6 +195,53 @@ export default function AdminPage() {
       setError("Error de conexión")
     }
     setGuardando(false)
+  }
+
+  async function guardarOrden() {
+    const ids = perfumes.map((p) => p.id)
+    const ordenes = ids.map((id, i) => ({ id, orden: i + 1 }))
+    setGuardando(true)
+    setMensaje("")
+    setError("")
+    try {
+      const res = await fetch("/api/admin/perfumes/orden", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${password}`,
+        },
+        body: JSON.stringify({ ordenes }),
+      })
+      const data = await res.json()
+      if (!res.ok) setError(data.error || "Error al guardar el orden")
+      else {
+        setMensaje("Orden guardado correctamente")
+        setPerfumes((prev) => prev.map((p, i) => ({ ...p, orden: i + 1 })))
+      }
+    } catch {
+      setError("Error de conexión")
+    }
+    setGuardando(false)
+  }
+
+  function subir(idx: number) {
+    if (idx <= 0) return
+    setPerfumes((prev) => {
+      const copia = [...prev]
+      const [movido] = copia.splice(idx, 1)
+      copia.splice(idx - 1, 0, movido)
+      return copia
+    })
+  }
+
+  function bajar(idx: number) {
+    if (idx >= perfumes.length - 1) return
+    setPerfumes((prev) => {
+      const copia = [...prev]
+      const [movido] = copia.splice(idx, 1)
+      copia.splice(idx + 1, 0, movido)
+      return copia
+    })
   }
 
   function agregarNota() {
@@ -376,26 +425,62 @@ export default function AdminPage() {
         {/* TAB: PERFUMES */}
         {tab === "perfumes" && (
           <>
-            <div className="flex justify-end mb-4">
-              <button
-                type="button"
-                onClick={abrirNuevo}
-                className="flex items-center gap-2 rounded-xl bg-gold-gradient px-4 py-2 text-sm font-bold text-primary-foreground shadow-[0_4px_20px_rgba(212,175,55,0.3)] hover:opacity-90"
-              >
-                <Plus className="size-4" />
-                Nuevo perfume
-              </button>
+            <div className="flex flex-wrap justify-between gap-3 mb-4">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <ChevronUp className="size-4" />
+                <ChevronDown className="size-4" />
+                Usa las flechas para ordenar los perfumes. El primero aparece primero en la web.
+              </div>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={abrirNuevo}
+                  className="flex items-center gap-2 rounded-xl border border-border bg-card px-4 py-2 text-sm text-foreground hover:bg-card/80"
+                >
+                  <Plus className="size-4" />
+                  Nuevo perfume
+                </button>
+                <button
+                  type="button"
+                  onClick={guardarOrden}
+                  disabled={guardando}
+                  className="flex items-center gap-2 rounded-xl bg-gold-gradient px-4 py-2 text-sm font-bold text-primary-foreground shadow-[0_4px_20px_rgba(212,175,55,0.3)] hover:opacity-90 disabled:opacity-50"
+                >
+                  <Save className="size-4" />
+                  {guardando ? "Guardando..." : "Guardar orden"}
+                </button>
+              </div>
             </div>
             <div className="grid gap-4 md:grid-cols-2">
-              {perfumes.map((p) => (
+              {perfumes.map((p, idx) => (
                 <div key={p.id} className="rounded-2xl border border-border bg-card p-4">
                   <div className="flex items-start justify-between">
                     <div>
-                      <p className="text-[10px] tracking-widest text-muted-foreground uppercase">{p.casa}</p>
+                      <p className="text-[10px] tracking-widest text-muted-foreground uppercase">#{idx + 1} · {p.casa}</p>
                       <h3 className="font-serif text-lg text-foreground">{p.nombre}</h3>
                       <p className="text-xs text-muted-foreground">Stock: {p.stock_ml} ml</p>
                     </div>
                     <div className="flex gap-1">
+                      <div className="flex flex-col">
+                        <button
+                          type="button"
+                          onClick={() => subir(idx)}
+                          disabled={idx === 0}
+                          aria-label="Subir"
+                          className="rounded p-1 text-muted-foreground hover:bg-white/10 hover:text-foreground disabled:opacity-30"
+                        >
+                          <ChevronUp className="size-4" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => bajar(idx)}
+                          disabled={idx === perfumes.length - 1}
+                          aria-label="Bajar"
+                          className="rounded p-1 text-muted-foreground hover:bg-white/10 hover:text-foreground disabled:opacity-30"
+                        >
+                          <ChevronDown className="size-4" />
+                        </button>
+                      </div>
                       <button
                         type="button"
                         onClick={() => abrirEditar(p)}
