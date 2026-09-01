@@ -26,6 +26,13 @@ export function PerfumeDetailModal() {
   const maxCantidad = decant && stockMl > 0 ? Math.max(1, Math.floor(stockMl / decant.ml)) : 1
 
   function cerrar() {
+    if (perfume) {
+      setPerfume(null)
+      setCantidad(1)
+      setDecantIdx(0)
+      history.back()
+      return
+    }
     setPerfume(null)
     setCantidad(1)
     setDecantIdx(0)
@@ -42,6 +49,7 @@ export function PerfumeDetailModal() {
         setPiramideAbierta(false)
         // Stock ya viene en p.stockMl
         setStockMl(p.stockMl)
+        history.pushState({ modal: "perfume" }, "")
       }
     } catch {
       setPerfume(null)
@@ -119,11 +127,18 @@ export function PerfumeDetailModal() {
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") cerrar()
     }
+    function onPopState() {
+      setPerfume(null)
+      setCantidad(1)
+      setDecantIdx(0)
+    }
     document.addEventListener("keydown", onKey)
+    window.addEventListener("popstate", onPopState)
     setTimeout(() => panelRef.current?.focus(), 0)
     return () => {
       document.body.style.overflow = prev
       document.removeEventListener("keydown", onKey)
+      window.removeEventListener("popstate", onPopState)
     }
   }, [perfume])
 
@@ -151,9 +166,9 @@ export function PerfumeDetailModal() {
           type="button"
           onClick={cerrar}
           aria-label="Cerrar"
-          className="absolute top-3 right-3 z-10 rounded-full bg-black/60 p-1.5 text-white backdrop-blur transition-colors hover:bg-white/20"
+          className="absolute top-3 right-3 z-10 flex size-10 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur transition-colors hover:bg-white/20"
         >
-          <X className="size-4" />
+          <X className="size-5" />
         </button>
 
         <div className="relative flex shrink-0 flex-col bg-[#1c1c1c] p-3 md:w-[48%] md:p-4">

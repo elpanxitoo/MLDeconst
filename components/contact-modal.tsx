@@ -9,11 +9,17 @@ export function ContactModal() {
   const panelRef = useRef<HTMLDivElement>(null)
 
   function cerrar() {
+    if (abierto) {
+      setAbierto(false)
+      history.back()
+      return
+    }
     setAbierto(false)
   }
 
   function abrir() {
     setAbierto(true)
+    history.pushState({ modal: "contacto" }, "")
   }
 
   // Escucha evento global "abrir-contacto" disparado por Navbar/Hero/Footer
@@ -35,7 +41,11 @@ export function ContactModal() {
     function onKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") cerrar()
     }
+    function onPopState() {
+      setAbierto(false)
+    }
     document.addEventListener("keydown", onKeyDown)
+    window.addEventListener("popstate", onPopState)
 
     // Focus al panel
     panelRef.current?.focus()
@@ -43,6 +53,7 @@ export function ContactModal() {
     return () => {
       document.body.style.overflow = prevOverflow
       document.removeEventListener("keydown", onKeyDown)
+      window.removeEventListener("popstate", onPopState)
     }
   }, [abierto])
 

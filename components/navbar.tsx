@@ -22,13 +22,20 @@ export function Navbar() {
     setAbierto(false)
   }
 
-  // Cerrar con ESC
+  // Cerrar con ESC + botón atrás
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") setAbierto(false)
+      if (e.key === "Escape") cerrarMenu()
+    }
+    function onPopState() {
+      setAbierto(false)
     }
     document.addEventListener("keydown", onKey)
-    return () => document.removeEventListener("keydown", onKey)
+    window.addEventListener("popstate", onPopState)
+    return () => {
+      document.removeEventListener("keydown", onKey)
+      window.removeEventListener("popstate", onPopState)
+    }
   }, [])
 
   // Bloquear scroll cuando menú abierto en móvil

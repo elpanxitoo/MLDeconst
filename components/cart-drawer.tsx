@@ -9,16 +9,44 @@ import { useEffect, useRef } from "react"
 export function CartDrawer() {
   const { items, count, total, open, setOpen, updateQuantity, removeFromCart, clearCart } = useCart()
   const panelRef = useRef<HTMLDivElement>(null)
+  const pushedHistoryRef = useRef(false)
+
+  // Push state when opened, listen for back button
+  useEffect(() => {
+    if (open && !pushedHistoryRef.current) {
+      pushedHistoryRef.current = true
+      history.pushState({ modal: "carrito" }, "")
+    }
+    if (!open) {
+      pushedHistoryRef.current = false
+    }
+  }, [open])
+
+  useEffect(() => {
+    function onPopState() {
+      if (open) setOpen(false)
+    }
+    window.addEventListener("popstate", onPopState)
+    return () => window.removeEventListener("popstate", onPopState)
+  }, [open, setOpen])
+
+  function cerrar() {
+    setOpen(false)
+    if (pushedHistoryRef.current) {
+      pushedHistoryRef.current = false
+      history.back()
+    }
+  }
 
   // ESC para cerrar
   useEffect(() => {
     if (!open) return
     function onKey(e: KeyboardEvent) {
-      if (e.key === "Escape") setOpen(false)
+      if (e.key === "Escape") cerrar()
     }
     document.addEventListener("keydown", onKey)
     return () => document.removeEventListener("keydown", onKey)
-  }, [open, setOpen])
+  }, [open])
 
   // Bloquear scroll
   useEffect(() => {
@@ -68,7 +96,7 @@ export function CartDrawer() {
       ].join("\n")
       window.open(`https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`, "_blank")
       clearCart()
-      setOpen(false)
+      cerrar()
     } catch (e) {
       alert("Error al procesar la compra: " + (e as Error).message)
     }
@@ -80,7 +108,7 @@ export function CartDrawer() {
     <div className="fixed inset-0 z-[110] flex justify-end">
       <div
         aria-hidden
-        onClick={() => setOpen(false)}
+        onClick={cerrar}
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
       />
       <div
@@ -103,7 +131,7 @@ export function CartDrawer() {
           </h2>
           <button
             type="button"
-            onClick={() => setOpen(false)}
+            onClick={cerrar}
             aria-label="Cerrar carrito"
             className="rounded-full p-1.5 text-muted-foreground hover:bg-white/10 hover:text-foreground"
           >
@@ -119,7 +147,7 @@ export function CartDrawer() {
             <p className="text-xs text-muted-foreground/70">Toca “Añadir al carrito” en cualquier perfume para guardarlo y comprar todo junto.</p>
             <button
               type="button"
-              onClick={() => setOpen(false)}
+              onClick={cerrar}
               className="mt-2 rounded-full border border-white/15 px-5 py-2 text-sm text-foreground hover:bg-white/5"
             >
               Seguir comprando
