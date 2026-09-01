@@ -85,7 +85,7 @@ export function Navbar() {
       className={`fixed top-0 z-50 flex w-full items-center justify-between border-b border-primary/15 bg-black/20 px-[6%] py-6 backdrop-blur-md transition-transform duration-300 will-change-transform ${visible ? "translate-y-0" : "-translate-y-full"}`}
     >
       <a href="/" className="flex items-center gap-2">
-        <Image src="/logo.jpg" alt="ML Decants" width={45} height={45} className="rounded-lg" />
+        <Image src="/logo.png" alt="ML Decants" width={45} height={45} className="rounded-lg" />
         <span className="font-serif text-xl font-bold tracking-[2px] text-gold-gradient uppercase md:text-2xl">
           ML Decants
         </span>
