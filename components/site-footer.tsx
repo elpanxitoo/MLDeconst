@@ -18,7 +18,7 @@ export function SiteFooter() {
           </p>
           <div className="mt-5 flex gap-5 text-xs tracking-widest text-muted-foreground uppercase">
             <a href="https://www.instagram.com/mldecants_cl?igsi=MXF2Ym5xcm5ndDhyYg==" className="hover:text-primary">Instagram</a>
-            <a href="#" className="hover:text-primary">WhatsApp</a>
+            <a href="https://wa.me/56936459493" target="_blank" rel="noopener noreferrer" className="hover:text-primary">WhatsApp</a>
             <a href="https://www.tiktok.com/@mldecants2?_r=1&_t=ZS-99KRDfFPAo9" className="hover:text-primary">TikTok</a>
           </div>
         </div>

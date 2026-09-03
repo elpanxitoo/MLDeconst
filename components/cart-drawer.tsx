@@ -85,7 +85,7 @@ export function CartDrawer() {
       for (const [id, stockMl] of Object.entries(stocks)) {
         window.dispatchEvent(new CustomEvent("stock-actualizado", { detail: { id, stockMl } }))
       }
-      const telefono = "56986037614"
+      const telefono = "56936459493"
       const lineas = items.map((it, idx) => `${idx + 1}. ${it.nombre} (${it.casa}) - ${it.ml} ML x${it.cantidad} - ${precioMostrar(it.precio)} c/u = ${precioMostrar(it.precio * it.cantidad)}`)
       const totalMl = items.reduce((a, b) => a + b.ml * b.cantidad, 0)
       const mensaje = [

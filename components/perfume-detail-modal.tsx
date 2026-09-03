@@ -76,7 +76,7 @@ export function PerfumeDetailModal() {
       const nuevoStock = data.stockMl as number
       setStockMl(nuevoStock)
       window.dispatchEvent(new CustomEvent("stock-actualizado", { detail: { id: perfume.id, stockMl: nuevoStock } }))
-      const telefono = "56986037614"
+      const telefono = "56936459493"
       const mensaje = [
         "Hola! Quiero comprar en ML Decants:",
         `- ${perfume.nombre} (${perfume.casa}) - ${decant.ml} ML x${cantidad} (~${decant.sprays} atomizaciones) - ${precioMostrar(decant.precio)} c/u`,

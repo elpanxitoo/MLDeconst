@@ -96,7 +96,7 @@ export function ContactModal() {
         <div className="mt-5 flex flex-col gap-3">
           {/* Teléfono - destacado con borde claro como en la imagen */}
           <a
-            href="tel:+56912345678"
+            href="tel:+56936459493"
             className="flex items-center gap-3 rounded-xl border border-white/80 bg-white/[0.04] px-4 py-3.5 transition-colors hover:bg-white/[0.08] hover:border-white"
           >
             <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-white/10">
@@ -104,12 +104,12 @@ export function ContactModal() {
             </span>
             <span className="flex flex-col">
               <span className="text-sm font-medium text-foreground">Teléfono</span>
-              <span className="text-sm text-muted-foreground">+56 9 1234 5678</span>
+              <span className="text-sm text-muted-foreground">+56 9 36459493</span>
             </span>
           </a>
 
           <a
-            href="https://wa.me/56912345678"
+            href="https://wa.me/56936459493"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 rounded-xl px-1 py-1 transition-colors hover:bg-white/[0.04]"
@@ -154,7 +154,7 @@ export function ContactModal() {
               <Camera className="size-3.5" />
             </a>
             <a
-              href="https://wa.me/56986037614"
+              href="https://wa.me/56936459493"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="WhatsApp"
