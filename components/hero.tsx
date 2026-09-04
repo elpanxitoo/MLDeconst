@@ -36,7 +36,7 @@ export function Hero() {
           Vive la Esencia <span className="text-gold-gradient italic">del Lujo</span>
         </h1>
 
-        <p className="mt-6 max-w-lg leading-relaxed font-light text-muted-foreground text-pretty">
+        <p className="mt-6 max-w-lg leading-relaxed font-light text-white text-pretty md:text-foreground">
           Accede a las fragancias más exclusivas y de autor del mundo en decants de 5ml y
           10ml. 100% auténticas, envasadas con precisión y atomizador premium dorado.
         </p>
