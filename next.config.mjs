@@ -4,7 +4,9 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    // Enable Next.js Image Optimization
+    // Vercel provides built-in Image Optimization API
+    // Remove unoptimized for optimized images
   },
 }
 

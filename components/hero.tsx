@@ -8,23 +8,17 @@ export function Hero() {
   }
   return (
     <header className="relative flex min-h-screen items-center justify-between gap-8 px-[6%] pt-32 pb-16">
-      {/* Imagen de fondo - Desktop */}
+      {/* Imagen de fondo responsive - Usa una sola imagen optimizada */}
       <Image
-        src="/hero.png"
+        src="/hero.webp"
         alt=""
         fill
         priority
-        className="hidden object-cover object-center md:block"
+        sizes="100vw"
+        className="object-cover object-center"
+        style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0 }}
       />
-      {/* Imagen de fondo - Mobile */}
-      <Image
-        src="/hero-Mobil.png"
-        alt=""
-        fill
-        priority
-        className="block object-cover object-center md:hidden"
-      />
-      <div className="absolute inset-0 bg-black/30 md:bg-black/0" />
+      <div className="absolute inset-0 bg-black/30" />
 
       {/* Contenido */}
       <div className="relative z-10 max-w-xl">
@@ -36,7 +30,7 @@ export function Hero() {
           Vive la Esencia <span className="text-gold-gradient italic">del Lujo</span>
         </h1>
 
-        <p className="mt-6 max-w-lg leading-relaxed font-light text-white text-pretty md:text-foreground">
+        <p className="mt-6 max-w-lg leading-relaxed font-light text-white text-pretty">
           Accede a las fragancias más exclusivas y de autor del mundo en decants de 5ml y
           10ml. 100% auténticas, envasadas con precisión y atomizador premium dorado.
         </p>
