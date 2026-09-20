@@ -98,12 +98,13 @@
   }
 }
 
+/* Background optimizado - WebP 178KB vs PNG 7.5MB */
 .bg-fragancias {
   position: absolute;
   inset: 0;
   z-index: 0;
   background-color: #030507;
-  background-image: url('/background-fragancias.png');
+  background-image: url('/background-fragancias.webp');
   background-size: 100%;
 }
 
